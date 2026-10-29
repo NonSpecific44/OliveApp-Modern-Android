@@ -1,0 +1,16 @@
+# Signing material never belongs in the repository.
+*.jks
+*.p12
+*.keystore
+*.pfx
+*password*.txt
+
+# Build and test outputs.
+/out/
+/build/
+test-harness/libs/
+test-harness/target/
+test-harness/AndroidManifest.xml
+test-harness/src/test/resources/com/android/tools/test_config.properties
+*.idsig
+__pycache__/
