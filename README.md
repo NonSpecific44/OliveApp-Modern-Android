@@ -11,11 +11,11 @@ so it sends the player exactly the same commands the original did.
 
 ## Download
 
-**Latest: [1.0-modern.5](releases/1.0-modern.5/)**: download
-[`OliveApp-Modern-1.0-modern.5.apk`](releases/1.0-modern.5/OliveApp-Modern-1.0-modern.5.apk) (on the file page, use
+**Latest: [1.0-modern.6](releases/1.0-modern.6/)**: download
+[`OliveApp-Modern-1.0-modern.6.apk`](releases/1.0-modern.6/OliveApp-Modern-1.0-modern.6.apk) (on the file page, use
 the download button), copy it to your phone and open it. Allow "Install unknown apps" when prompted; if Play Protect
 warns about an unknown developer, choose **More details → Install anyway**. See the
-[release notes](releases/1.0-modern.5/RELEASE_NOTES.md).
+[release notes](releases/1.0-modern.6/RELEASE_NOTES.md).
 
 Each release folder has the APK's SHA-256 (`.sha256`), and the release notes list the signing certificate
 fingerprint, so you can check your download. All releases from 1.0-modern.4 on are signed with the same key, so
@@ -25,10 +25,20 @@ Requires Android 6.0 or newer; designed for Android 14-16.
 
 ## Connecting to your Olive
 
-- **On the Olive's Wi-Fi:** the app searches for the player automatically.
+- **On the Olive's network:** the app finds the player automatically.
+- **Olive on a different subnet or VLAN** (e.g. phone on `10.50.1.x`, Olive on `10.50.10.x`): tap **Scan a network**
+  in the device picker and enter the Olive's network, e.g. `10.50.10.0/24`. The original automatic search uses
+  multicast, which routers don't forward between subnets; the scan uses ordinary connections that they do. Networks
+  where an Olive was found, and the network of any address you've connected to, are scanned automatically next time.
 - **Anywhere else** (mobile data with Tailscale or another VPN): type the player's address into the connect box,
-  e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet. Automatic
-  search uses local multicast, so it can't work across a VPN.
+  e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet.
+
+## Lock-screen controls
+
+While your Olive plays, Android's media player (lock screen, quick settings, notifications) shows the artwork,
+track and artist, with play/pause and skip controls, and your phone's volume keys control the Olive's volume, like
+Spotify Connect. This uses a standard Android media session, so it also works with car displays, watches and
+headset buttons.
 
 ## What was changed
 
@@ -44,6 +54,7 @@ Requires Android 6.0 or newer; designed for Android 14-16.
 | Artwork cache in shared storage (blocked by scoped storage); manifest invalid for API 31+ | Private cache; manifest updated |
 | Voice search disabled on Android 11+ (package visibility) | `<queries>` entry for the speech recogniser |
 | No way to see why it closed | Built-in crash reporter: the next launch shows the error with a Copy button |
+| Automatic search couldn't find an Olive on another subnet/VLAN (multicast isn't routed) | Unicast network scan: automatic for known networks, plus **Scan a network** |
 | 2011 Android 1.x UI | Material 3 (below) |
 
 ### Material 3 / Android 16 design

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 38
+    .line 39
     iput-object p1, p0, Lolive/app/OliveApplication$1;->this$0:Lolive/app/OliveApplication;
 
     iput-object p2, p0, Lolive/app/OliveApplication$1;->val$previous:Ljava/lang/Thread$UncaughtExceptionHandler;
@@ -49,20 +49,20 @@
     .locals 5
 
     .prologue
-    .line 41
+    .line 42
     :try_start_0
     new-instance v0, Ljava/io/StringWriter;
 
     invoke-direct {v0}, Ljava/io/StringWriter;-><init>()V
 
-    .line 42
+    .line 43
     new-instance v1, Ljava/io/PrintWriter;
 
     invoke-direct {v1, v0}, Ljava/io/PrintWriter;-><init>(Ljava/io/Writer;)V
 
     invoke-virtual {p2, v1}, Ljava/lang/Throwable;->printStackTrace(Ljava/io/PrintWriter;)V
 
-    .line 43
+    .line 44
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -137,7 +137,7 @@
 
     move-result-object v1
 
-    .line 45
+    .line 46
     invoke-virtual {p1}, Ljava/lang/Thread;->getName()Ljava/lang/String;
 
     move-result-object v2
@@ -160,7 +160,7 @@
 
     move-result-object v0
 
-    .line 46
+    .line 47
     new-instance v1, Ljava/io/FileOutputStream;
 
     new-instance v2, Ljava/io/File;
@@ -177,7 +177,7 @@
 
     invoke-direct {v1, v2}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    .line 47
+    .line 48
     const-string v2, "UTF-8"
 
     invoke-virtual {v0, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
@@ -186,27 +186,27 @@
 
     invoke-virtual {v1, v0}, Ljava/io/FileOutputStream;->write([B)V
 
-    .line 48
+    .line 49
     invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
     :try_end_0
     .catch Ljava/lang/Throwable; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 51
+    .line 52
     :goto_0
     iget-object v0, p0, Lolive/app/OliveApplication$1;->val$previous:Ljava/lang/Thread$UncaughtExceptionHandler;
 
     if-eqz v0, :cond_0
 
-    .line 52
+    .line 53
     iget-object v0, p0, Lolive/app/OliveApplication$1;->val$previous:Ljava/lang/Thread$UncaughtExceptionHandler;
 
     invoke-interface {v0, p1, p2}, Ljava/lang/Thread$UncaughtExceptionHandler;->uncaughtException(Ljava/lang/Thread;Ljava/lang/Throwable;)V
 
-    .line 54
+    .line 55
     :cond_0
     return-void
 
-    .line 49
+    .line 50
     :catch_0
     move-exception v0
 

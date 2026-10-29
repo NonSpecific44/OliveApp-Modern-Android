@@ -50,8 +50,8 @@ android_resource_apk=$APK
 android_custom_package=olive.app
 EOF
 
-# Fake Olive player with sample data on localhost:8765.
-python3 -I "$HERE/olive_server.py" 8765 > "$BUILD/fake-olive.log" 2>&1 &
+# Fake Olive player with sample data on localhost:8765, answering UPnP searches on UDP 1900.
+python3 -I "$HERE/olive_server.py" 8765 1900 > "$BUILD/fake-olive.log" 2>&1 &
 SERVER=$!
 trap 'kill $SERVER 2>/dev/null' EXIT
 sleep 1

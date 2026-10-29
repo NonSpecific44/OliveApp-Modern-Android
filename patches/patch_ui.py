@@ -618,7 +618,11 @@ layouts['radioitem'] = f'''{HDR}<LinearLayout android:gravity="center_vertical" 
 layouts['main'] = f'''{HDR}<LinearLayout android:orientation="vertical" android:paddingLeft="24dip" android:paddingTop="8dip" android:paddingRight="24dip" android:paddingBottom="16dip" android:layout_width="fill_parent" android:layout_height="wrap_content" {NS}>
     <TextView style="@style/Text.BodyMedium" android:id="@id/TextView03" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Enter your Olive's IP address or hostname. Over Tailscale, use its Tailscale IP (100.x.x.x) or MagicDNS name." />
     <EditText android:id="@id/tf_DevIP" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="16dip" android:hint="@string/typeIP" android:inputType="textUri" android:singleLine="true" />
-    <Button android:layout_gravity="right" android:id="@id/connect" android:layout_marginTop="16dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/connect" />
+    <LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="16dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/scanNetwork" style="@style/Olive.Button.Text" android:visibility="gone" android:layout_marginLeft="-12dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan a network" />
+        <View android:layout_width="0dip" android:layout_height="1dip" android:layout_weight="1.0" />
+        <Button android:id="@id/connect" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/connect" />
+    </LinearLayout>
     <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="16dip" android:paddingBottom="4dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
         <ProgressBar android:id="@id/searchLoadingIcon" android:layout_width="20dip" android:layout_height="20dip" android:layout_marginRight="12dip" />
         <TextView style="@style/Text.BodyMedium" android:id="@id/searchDevicesText" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:text="@string/selectDevs" />

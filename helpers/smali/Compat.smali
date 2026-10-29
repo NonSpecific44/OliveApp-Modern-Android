@@ -990,7 +990,7 @@
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
     .line 150
-    const-string v1, "Automatic search only works on the same Wi-Fi as the Olive. Not on Wi-Fi right now, so enter the address above."
+    const-string v1, "Automatic search needs the Olive\'s Wi-Fi. Enter the address above, or use Scan a network."
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 

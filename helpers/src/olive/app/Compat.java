@@ -147,7 +147,7 @@ public final class Compat {
         TextView text = (TextView) activity.findViewById(id(activity, "id", "searchDevicesText"));
         if (text != null) {
             text.setVisibility(View.VISIBLE);
-            text.setText("Automatic search only works on the same Wi-Fi as the Olive. Not on Wi-Fi right now, so enter the address above.");
+            text.setText("Automatic search needs the Olive's Wi-Fi. Enter the address above, or use Scan a network.");
         }
         return true;
     }
