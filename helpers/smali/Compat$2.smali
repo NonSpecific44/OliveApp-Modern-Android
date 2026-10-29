@@ -39,7 +39,7 @@
     .end annotation
 
     .prologue
-    .line 184
+    .line 187
     iput-object p1, p0, Lolive/app/Compat$2;->val$tabs:Landroid/widget/TabHost;
 
     iput-object p2, p0, Lolive/app/Compat$2;->val$host:Landroid/app/TabActivity;
@@ -69,19 +69,19 @@
 
     const/high16 v7, 0x3f800000    # 1.0f
 
-    .line 186
+    .line 189
     iget-object v0, p0, Lolive/app/Compat$2;->val$tabs:Landroid/widget/TabHost;
 
     invoke-virtual {v0}, Landroid/widget/TabHost;->getCurrentTabView()Landroid/view/View;
 
     move-result-object v3
 
-    .line 187
+    .line 190
     if-nez v3, :cond_4
 
     move-object v0, v1
 
-    .line 188
+    .line 191
     :goto_0
     iget-object v4, p0, Lolive/app/Compat$2;->val$title:Landroid/widget/TextView;
 
@@ -89,7 +89,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 189
+    .line 192
     iget-object v4, p0, Lolive/app/Compat$2;->val$title:Landroid/widget/TextView;
 
     invoke-virtual {v0}, Landroid/widget/TextView;->getText()Ljava/lang/CharSequence;
@@ -98,13 +98,13 @@
 
     invoke-virtual {v4, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 191
+    .line 194
     :cond_0
     iget-object v0, p0, Lolive/app/Compat$2;->val$search:Landroid/view/View;
 
     if-eqz v0, :cond_1
 
-    .line 192
+    .line 195
     iget-object v4, p0, Lolive/app/Compat$2;->val$search:Landroid/view/View;
 
     iget-object v0, p0, Lolive/app/Compat$2;->val$host:Landroid/app/TabActivity;
@@ -124,7 +124,7 @@
     :goto_1
     invoke-virtual {v4, v0}, Landroid/view/View;->setVisibility(I)V
 
-    .line 194
+    .line 197
     :cond_1
     iget-object v0, p0, Lolive/app/Compat$2;->val$animate:[Z
 
@@ -132,19 +132,19 @@
 
     if-eqz v0, :cond_3
 
-    .line 195
+    .line 198
     if-nez v3, :cond_6
 
-    .line 196
+    .line 199
     :goto_2
     if-eqz v1, :cond_2
 
-    .line 197
+    .line 200
     const v0, 0x3ecccccd    # 0.4f
 
     invoke-virtual {v1, v0}, Landroid/view/View;->setScaleX(F)V
 
-    .line 198
+    .line 201
     invoke-virtual {v1}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
@@ -167,7 +167,7 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 200
+    .line 203
     :cond_2
     iget-object v0, p0, Lolive/app/Compat$2;->val$tabs:Landroid/widget/TabHost;
 
@@ -175,21 +175,21 @@
 
     move-result-object v0
 
-    .line 201
+    .line 204
     if-eqz v0, :cond_3
 
-    .line 203
+    .line 206
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setAlpha(F)V
 
-    .line 204
+    .line 207
     invoke-virtual {v0, v8}, Landroid/view/View;->setScaleX(F)V
 
-    .line 205
+    .line 208
     invoke-virtual {v0, v8}, Landroid/view/View;->setScaleY(F)V
 
-    .line 206
+    .line 209
     invoke-virtual {v0}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
@@ -226,11 +226,11 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 209
+    .line 212
     :cond_3
     return-void
 
-    .line 187
+    .line 190
     :cond_4
     iget-object v0, p0, Lolive/app/Compat$2;->val$host:Landroid/app/TabActivity;
 
@@ -250,13 +250,13 @@
 
     goto/16 :goto_0
 
-    .line 192
+    .line 195
     :cond_5
     const/16 v0, 0x8
 
     goto :goto_1
 
-    .line 195
+    .line 198
     :cond_6
     iget-object v0, p0, Lolive/app/Compat$2;->val$host:Landroid/app/TabActivity;
 

@@ -14,7 +14,7 @@
     .locals 5
 
     .prologue
-    .line 36
+    .line 39
     new-instance v0, Landroid/view/animation/PathInterpolator;
 
     const v1, 0x3d4ccccd    # 0.05f
@@ -36,10 +36,10 @@
     .locals 0
 
     .prologue
-    .line 38
+    .line 41
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 39
+    .line 42
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 35
     invoke-static {p0, p1, p2}, Lolive/app/Compat;->id(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
 
     move-result v0
@@ -59,7 +59,7 @@
     .locals 1
 
     .prologue
-    .line 32
+    .line 35
     invoke-static {p0, p1, p2}, Lolive/app/Compat;->findTabMenuItem(Landroid/app/TabActivity;Landroid/view/View;Ljava/lang/String;)Landroid/view/MenuItem;
 
     move-result-object v0
@@ -71,7 +71,7 @@
     .locals 1
 
     .prologue
-    .line 278
+    .line 303
     invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
 
     move-result-object v0
@@ -80,18 +80,18 @@
 
     const/4 v0, 0x0
 
-    .line 279
+    .line 304
     :goto_0
     if-eqz v0, :cond_0
 
-    .line 280
+    .line 305
     invoke-static {v0}, Lolive/app/Compat;->watchLists(Landroid/view/View;)V
 
-    .line 282
+    .line 307
     :cond_0
     return-void
 
-    .line 278
+    .line 303
     :cond_1
     invoke-virtual {p0}, Landroid/app/Activity;->getWindow()Landroid/view/Window;
 
@@ -110,14 +110,14 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 154
+    .line 157
     invoke-virtual {p0}, Landroid/widget/TextView;->getParent()Landroid/view/ViewParent;
 
     move-result-object v0
 
     check-cast v0, Landroid/view/View;
 
-    .line 155
+    .line 158
     invoke-virtual {p0}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -136,10 +136,10 @@
 
     check-cast v1, Landroid/widget/TextView;
 
-    .line 156
+    .line 159
     if-ne v1, p0, :cond_2
 
-    .line 157
+    .line 160
     invoke-virtual {p0}, Landroid/widget/TextView;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -158,7 +158,7 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 159
+    .line 162
     :goto_0
     if-eqz v0, :cond_0
 
@@ -194,7 +194,7 @@
 
     const/4 v0, 0x1
 
-    .line 160
+    .line 163
     :goto_1
     if-eqz v0, :cond_1
 
@@ -203,19 +203,19 @@
     :goto_2
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 161
+    .line 164
     return-void
 
     :cond_0
     move v0, v2
 
-    .line 159
+    .line 162
     goto :goto_1
 
     :cond_1
     move v0, v2
 
-    .line 160
+    .line 163
     goto :goto_2
 
     :cond_2
@@ -228,7 +228,7 @@
     .locals 1
 
     .prologue
-    .line 47
+    .line 50
     sget-object v0, Landroid/os/AsyncTask;->THREAD_POOL_EXECUTOR:Ljava/util/concurrent/Executor;
 
     invoke-virtual {p0, v0, p1}, Landroid/os/AsyncTask;->executeOnExecutor(Ljava/util/concurrent/Executor;[Ljava/lang/Object;)Landroid/os/AsyncTask;
@@ -242,22 +242,22 @@
     .locals 2
 
     .prologue
-    .line 217
+    .line 220
     invoke-virtual {p0}, Landroid/app/TabActivity;->getCurrentActivity()Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 218
+    .line 221
     if-nez v0, :cond_0
 
-    .line 219
+    .line 222
     const/4 v0, 0x0
 
-    .line 224
+    .line 227
     :goto_0
     return-object v0
 
-    .line 221
+    .line 224
     :cond_0
     new-instance v1, Landroid/widget/PopupMenu;
 
@@ -267,13 +267,13 @@
 
     move-result-object v1
 
-    .line 222
+    .line 225
     invoke-virtual {v0, v1}, Landroid/app/Activity;->onCreateOptionsMenu(Landroid/view/Menu;)Z
 
-    .line 223
+    .line 226
     invoke-virtual {v0, v1}, Landroid/app/Activity;->onPrepareOptionsMenu(Landroid/view/Menu;)Z
 
-    .line 224
+    .line 227
     const-string v0, "id"
 
     invoke-static {p0, v0, p2}, Lolive/app/Compat;->id(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
@@ -291,7 +291,7 @@
     .locals 2
 
     .prologue
-    .line 95
+    .line 98
     invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -313,7 +313,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 104
+    .line 107
     if-eqz p0, :cond_0
 
     invoke-virtual {p0}, Landroid/net/wifi/WifiInfo;->getIpAddress()I
@@ -322,16 +322,16 @@
 
     if-eqz v0, :cond_0
 
-    .line 105
+    .line 108
     invoke-virtual {p0}, Landroid/net/wifi/WifiInfo;->getIpAddress()I
 
     move-result v0
 
-    .line 122
+    .line 125
     :goto_0
     return v0
 
-    .line 108
+    .line 111
     :cond_0
     :try_start_0
     invoke-static {}, Ljava/net/NetworkInterface;->getNetworkInterfaces()Ljava/util/Enumeration;
@@ -359,7 +359,7 @@
 
     check-cast v0, Ljava/net/NetworkInterface;
 
-    .line 109
+    .line 112
     invoke-virtual {v0}, Ljava/net/NetworkInterface;->isUp()Z
 
     move-result v3
@@ -372,7 +372,7 @@
 
     if-nez v3, :cond_1
 
-    .line 112
+    .line 115
     invoke-virtual {v0}, Ljava/net/NetworkInterface;->getInetAddresses()Ljava/util/Enumeration;
 
     move-result-object v0
@@ -398,17 +398,17 @@
 
     check-cast v0, Ljava/net/InetAddress;
 
-    .line 113
+    .line 116
     instance-of v4, v0, Ljava/net/Inet4Address;
 
     if-eqz v4, :cond_2
 
-    .line 114
+    .line 117
     invoke-virtual {v0}, Ljava/net/InetAddress;->getAddress()[B
 
     move-result-object v0
 
-    .line 115
+    .line 118
     const/4 v2, 0x0
 
     aget-byte v2, v0, v2
@@ -449,17 +449,17 @@
 
     goto :goto_0
 
-    .line 119
+    .line 122
     :catch_0
     move-exception v0
 
-    .line 120
+    .line 123
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     :cond_3
     move v0, v1
 
-    .line 122
+    .line 125
     goto :goto_0
 .end method
 
@@ -467,7 +467,7 @@
     .locals 0
 
     .prologue
-    .line 271
+    .line 296
     return-void
 .end method
 
@@ -475,20 +475,20 @@
     .locals 3
 
     .prologue
-    .line 53
+    .line 56
     const-class v1, Lolive/app/Compat;
 
     monitor-enter v1
 
     if-eqz p1, :cond_2
 
-    .line 54
+    .line 57
     :try_start_0
     sget-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
 
     if-nez v0, :cond_0
 
-    .line 55
+    .line 58
     invoke-virtual {p0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v0
@@ -501,7 +501,7 @@
 
     check-cast v0, Landroid/net/wifi/WifiManager;
 
-    .line 56
+    .line 59
     const-string v2, "olive-ssdp"
 
     invoke-virtual {v0, v2}, Landroid/net/wifi/WifiManager;->createMulticastLock(Ljava/lang/String;)Landroid/net/wifi/WifiManager$MulticastLock;
@@ -510,14 +510,14 @@
 
     sput-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
 
-    .line 57
+    .line 60
     sget-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
 
     const/4 v2, 0x0
 
     invoke-virtual {v0, v2}, Landroid/net/wifi/WifiManager$MulticastLock;->setReferenceCounted(Z)V
 
-    .line 59
+    .line 62
     :cond_0
     sget-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
 
@@ -526,14 +526,14 @@
     .catch Ljava/lang/RuntimeException; {:try_start_0 .. :try_end_0} :catch_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 66
+    .line 69
     :cond_1
     :goto_0
     monitor-exit v1
 
     return-void
 
-    .line 60
+    .line 63
     :cond_2
     :try_start_1
     sget-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
@@ -548,7 +548,7 @@
 
     if-eqz v0, :cond_1
 
-    .line 61
+    .line 64
     sget-object v0, Lolive/app/Compat;->multicastLock:Landroid/net/wifi/WifiManager$MulticastLock;
 
     invoke-virtual {v0}, Landroid/net/wifi/WifiManager$MulticastLock;->release()V
@@ -558,11 +558,11 @@
 
     goto :goto_0
 
-    .line 63
+    .line 66
     :catch_0
     move-exception v0
 
-    .line 64
+    .line 67
     :try_start_2
     invoke-virtual {v0}, Ljava/lang/RuntimeException;->printStackTrace()V
     :try_end_2
@@ -570,7 +570,7 @@
 
     goto :goto_0
 
-    .line 53
+    .line 56
     :catchall_0
     move-exception v0
 
@@ -579,11 +579,147 @@
     throw v0
 .end method
 
-.method public static setPlayIcon(Landroid/widget/ImageButton;I)V
-    .locals 1
+.method public static playIconKey(Landroid/graphics/drawable/Drawable;)I
+    .locals 8
 
     .prologue
-    .line 240
+    const/16 v4, 0x200
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    .line 256
+    if-nez p0, :cond_0
+
+    .line 269
+    :goto_0
+    return v2
+
+    .line 259
+    :cond_0
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getConstantState()Landroid/graphics/drawable/Drawable$ConstantState;
+
+    move-result-object v0
+
+    if-nez v0, :cond_1
+
+    .line 261
+    :goto_1
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
+
+    move-result v0
+
+    if-lez v0, :cond_2
+
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
+
+    move-result v0
+
+    :goto_2
+    invoke-static {v0, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v0
+
+    invoke-static {v1, v0}, Ljava/lang/Math;->max(II)I
+
+    move-result v3
+
+    .line 262
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
+
+    move-result v0
+
+    if-lez v0, :cond_3
+
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getIntrinsicHeight()I
+
+    move-result v0
+
+    :goto_3
+    invoke-static {v0, v4}, Ljava/lang/Math;->min(II)I
+
+    move-result v0
+
+    invoke-static {v1, v0}, Ljava/lang/Math;->max(II)I
+
+    move-result v7
+
+    .line 263
+    sget-object v0, Landroid/graphics/Bitmap$Config;->ARGB_8888:Landroid/graphics/Bitmap$Config;
+
+    invoke-static {v3, v7, v0}, Landroid/graphics/Bitmap;->createBitmap(IILandroid/graphics/Bitmap$Config;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    .line 264
+    invoke-virtual {p0, v2, v2, v3, v7}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
+
+    .line 265
+    new-instance v1, Landroid/graphics/Canvas;
+
+    invoke-direct {v1, v0}, Landroid/graphics/Canvas;-><init>(Landroid/graphics/Bitmap;)V
+
+    invoke-virtual {p0, v1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
+
+    .line 266
+    mul-int v1, v3, v7
+
+    new-array v1, v1, [I
+
+    move v4, v2
+
+    move v5, v2
+
+    move v6, v3
+
+    .line 267
+    invoke-virtual/range {v0 .. v7}, Landroid/graphics/Bitmap;->getPixels([IIIIIII)V
+
+    .line 268
+    invoke-virtual {v0}, Landroid/graphics/Bitmap;->recycle()V
+
+    .line 269
+    invoke-static {v1}, Ljava/util/Arrays;->hashCode([I)I
+
+    move-result v2
+
+    goto :goto_0
+
+    .line 259
+    :cond_1
+    invoke-virtual {p0}, Landroid/graphics/drawable/Drawable;->getConstantState()Landroid/graphics/drawable/Drawable$ConstantState;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable$ConstantState;->newDrawable()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/Drawable;->mutate()Landroid/graphics/drawable/Drawable;
+
+    move-result-object p0
+
+    goto :goto_1
+
+    .line 261
+    :cond_2
+    const/16 v0, 0x60
+
+    goto :goto_2
+
+    .line 262
+    :cond_3
+    const/16 v0, 0x48
+
+    goto :goto_3
+.end method
+
+.method public static setPlayIcon(Landroid/widget/ImageButton;I)V
+    .locals 2
+
+    .prologue
+    .line 243
     invoke-virtual {p0}, Landroid/widget/ImageButton;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -592,9 +728,14 @@
 
     move-result-object v0
 
-    invoke-static {p0, v0, p1}, Lolive/app/Compat;->swapPlayIcon(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;I)V
+    .line 244
+    invoke-static {v0}, Lolive/app/Compat;->playIconKey(Landroid/graphics/drawable/Drawable;)I
 
-    .line 241
+    move-result v1
+
+    invoke-static {p0, v0, v1}, Lolive/app/Compat;->swapPlayIcon(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;I)V
+
+    .line 245
     return-void
 .end method
 
@@ -602,41 +743,15 @@
     .locals 1
 
     .prologue
-    .line 244
-    if-nez p1, :cond_0
+    .line 248
+    invoke-static {p1}, Lolive/app/Compat;->playIconKey(Landroid/graphics/drawable/Drawable;)I
 
-    const/4 v0, 0x0
+    move-result v0
 
-    :goto_0
     invoke-static {p0, p1, v0}, Lolive/app/Compat;->swapPlayIcon(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;I)V
 
-    .line 245
+    .line 249
     return-void
-
-    .line 244
-    :cond_0
-    invoke-virtual {p1}, Landroid/graphics/drawable/Drawable;->getConstantState()Landroid/graphics/drawable/Drawable$ConstantState;
-
-    move-result-object v0
-
-    if-nez v0, :cond_1
-
-    invoke-virtual {p1}, Ljava/lang/Object;->hashCode()I
-
-    move-result v0
-
-    goto :goto_0
-
-    :cond_1
-    invoke-virtual {p1}, Landroid/graphics/drawable/Drawable;->getConstantState()Landroid/graphics/drawable/Drawable$ConstantState;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/Object;->hashCode()I
-
-    move-result v0
-
-    goto :goto_0
 .end method
 
 .method public static setupShell(Landroid/app/TabActivity;)V
@@ -647,12 +762,12 @@
 
     const/4 v6, 0x0
 
-    .line 180
+    .line 183
     invoke-virtual {p0}, Landroid/app/TabActivity;->getTabHost()Landroid/widget/TabHost;
 
     move-result-object v1
 
-    .line 181
+    .line 184
     const-string v0, "id"
 
     const-string v2, "screenTitle"
@@ -667,7 +782,7 @@
 
     check-cast v3, Landroid/widget/TextView;
 
-    .line 182
+    .line 185
     const-string v0, "id"
 
     const-string v2, "searchButton"
@@ -680,32 +795,32 @@
 
     move-result-object v4
 
-    .line 183
+    .line 186
     new-array v5, v7, [Z
 
     aput-boolean v6, v5, v6
 
-    .line 184
+    .line 187
     new-instance v0, Lolive/app/Compat$2;
 
     move-object v2, p0
 
     invoke-direct/range {v0 .. v5}, Lolive/app/Compat$2;-><init>(Landroid/widget/TabHost;Landroid/app/TabActivity;Landroid/widget/TextView;Landroid/view/View;[Z)V
 
-    .line 211
+    .line 214
     invoke-virtual {v1, v0}, Landroid/widget/TabHost;->setOnTabChangedListener(Landroid/widget/TabHost$OnTabChangeListener;)V
 
-    .line 212
+    .line 215
     invoke-virtual {v1}, Landroid/widget/TabHost;->getCurrentTabTag()Ljava/lang/String;
 
     move-result-object v1
 
     invoke-interface {v0, v1}, Landroid/widget/TabHost$OnTabChangeListener;->onTabChanged(Ljava/lang/String;)V
 
-    .line 213
+    .line 216
     aput-boolean v7, v5, v6
 
-    .line 214
+    .line 217
     return-void
 .end method
 
@@ -713,43 +828,43 @@
     .locals 3
 
     .prologue
-    .line 74
+    .line 77
     invoke-virtual {p0}, Landroid/app/TabActivity;->getCurrentActivity()Landroid/app/Activity;
 
     move-result-object v0
 
-    .line 75
+    .line 78
     if-nez v0, :cond_0
 
-    .line 92
+    .line 95
     :goto_0
     return-void
 
-    .line 78
+    .line 81
     :cond_0
     new-instance v1, Landroid/widget/PopupMenu;
 
     invoke-direct {v1, p0, p1}, Landroid/widget/PopupMenu;-><init>(Landroid/content/Context;Landroid/view/View;)V
 
-    .line 79
+    .line 82
     invoke-virtual {v1}, Landroid/widget/PopupMenu;->getMenu()Landroid/view/Menu;
 
     move-result-object v2
 
-    .line 80
+    .line 83
     invoke-virtual {v0, v2}, Landroid/app/Activity;->onCreateOptionsMenu(Landroid/view/Menu;)Z
 
-    .line 81
+    .line 84
     invoke-virtual {v0, v2}, Landroid/app/Activity;->onPrepareOptionsMenu(Landroid/view/Menu;)Z
 
-    .line 82
+    .line 85
     invoke-interface {v2}, Landroid/view/Menu;->hasVisibleItems()Z
 
     move-result v2
 
     if-nez v2, :cond_1
 
-    .line 83
+    .line 86
     const-string v0, "No options for this tab"
 
     const/4 v1, 0x0
@@ -762,7 +877,7 @@
 
     goto :goto_0
 
-    .line 86
+    .line 89
     :cond_1
     new-instance v2, Lolive/app/Compat$1;
 
@@ -770,7 +885,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/PopupMenu;->setOnMenuItemClickListener(Landroid/widget/PopupMenu$OnMenuItemClickListener;)V
 
-    .line 91
+    .line 94
     invoke-virtual {v1}, Landroid/widget/PopupMenu;->show()V
 
     goto :goto_0
@@ -782,10 +897,10 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 131
+    .line 134
     const/4 v2, 0x0
 
-    .line 133
+    .line 136
     :try_start_0
     invoke-virtual {p0}, Landroid/app/Activity;->getApplicationContext()Landroid/content/Context;
 
@@ -799,14 +914,14 @@
 
     check-cast v0, Landroid/net/wifi/WifiManager;
 
-    .line 134
+    .line 137
     invoke-virtual {v0}, Landroid/net/wifi/WifiManager;->getConnectionInfo()Landroid/net/wifi/WifiInfo;
     :try_end_0
     .catch Ljava/lang/RuntimeException; {:try_start_0 .. :try_end_0} :catch_0
 
     move-result-object v0
 
-    .line 137
+    .line 140
     :goto_0
     if-eqz v0, :cond_0
 
@@ -818,11 +933,11 @@
 
     move v0, v1
 
-    .line 149
+    .line 152
     :goto_1
     return v0
 
-    .line 135
+    .line 138
     :catch_0
     move-exception v0
 
@@ -830,7 +945,7 @@
 
     goto :goto_0
 
-    .line 140
+    .line 143
     :cond_0
     const-string v0, "id"
 
@@ -844,15 +959,15 @@
 
     move-result-object v0
 
-    .line 141
+    .line 144
     if-eqz v0, :cond_1
 
-    .line 142
+    .line 145
     const/16 v2, 0x8
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 144
+    .line 147
     :cond_1
     const-string v0, "id"
 
@@ -868,18 +983,18 @@
 
     check-cast v0, Landroid/widget/TextView;
 
-    .line 145
+    .line 148
     if-eqz v0, :cond_2
 
-    .line 146
+    .line 149
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 147
+    .line 150
     const-string v1, "Automatic search only works on the same Wi-Fi as the Olive. Not on Wi-Fi right now, so enter the address above."
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 149
+    .line 152
     :cond_2
     const/4 v0, 0x1
 
@@ -892,7 +1007,7 @@
     .prologue
     const v3, 0x3f51eb85    # 0.82f
 
-    .line 248
+    .line 273
     invoke-virtual {p0}, Landroid/widget/ImageButton;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -905,23 +1020,23 @@
 
     move-result v1
 
-    .line 249
+    .line 274
     if-nez v1, :cond_2
 
     const/4 v0, 0x0
 
-    .line 250
+    .line 275
     :goto_0
     if-eqz v1, :cond_0
 
-    .line 251
+    .line 276
     invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v2
 
     invoke-virtual {p0, v1, v2}, Landroid/widget/ImageButton;->setTag(ILjava/lang/Object;)V
 
-    .line 253
+    .line 278
     :cond_0
     if-eqz v0, :cond_1
 
@@ -939,15 +1054,15 @@
 
     if-nez v0, :cond_3
 
-    .line 254
+    .line 279
     :cond_1
     invoke-virtual {p0, p1}, Landroid/widget/ImageButton;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 264
+    .line 289
     :goto_1
     return-void
 
-    .line 249
+    .line 274
     :cond_2
     invoke-virtual {p0, v1}, Landroid/widget/ImageButton;->getTag(I)Ljava/lang/Object;
 
@@ -955,7 +1070,7 @@
 
     goto :goto_0
 
-    .line 257
+    .line 282
     :cond_3
     invoke-virtual {p0}, Landroid/widget/ImageButton;->animate()Landroid/view/ViewPropertyAnimator;
 
@@ -963,7 +1078,7 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->cancel()V
 
-    .line 258
+    .line 283
     invoke-virtual {p0}, Landroid/widget/ImageButton;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
@@ -996,7 +1111,7 @@
 
     move-result-object v0
 
-    .line 263
+    .line 288
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
     goto :goto_1
@@ -1006,22 +1121,22 @@
     .locals 2
 
     .prologue
-    .line 229
+    .line 232
     invoke-static {p0, p1, p2}, Lolive/app/Compat;->findTabMenuItem(Landroid/app/TabActivity;Landroid/view/View;Ljava/lang/String;)Landroid/view/MenuItem;
 
     move-result-object v0
 
-    .line 230
+    .line 233
     if-eqz v0, :cond_0
 
-    .line 231
+    .line 234
     invoke-virtual {p0}, Landroid/app/TabActivity;->getCurrentActivity()Landroid/app/Activity;
 
     move-result-object v1
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->onOptionsItemSelected(Landroid/view/MenuItem;)Z
 
-    .line 233
+    .line 236
     :cond_0
     return-void
 .end method
@@ -1030,7 +1145,7 @@
     .locals 4
 
     .prologue
-    .line 165
+    .line 168
     invoke-virtual {p0}, Landroid/app/Activity;->getLayoutInflater()Landroid/view/LayoutInflater;
 
     move-result-object v0
@@ -1049,7 +1164,7 @@
 
     move-result-object v1
 
-    .line 166
+    .line 169
     const-string v0, "drawable"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1082,7 +1197,7 @@
 
     move-result v2
 
-    .line 167
+    .line 170
     const-string v0, "id"
 
     const-string v3, "tabIcon"
@@ -1097,13 +1212,13 @@
 
     check-cast v0, Landroid/widget/ImageView;
 
-    .line 168
+    .line 171
     if-eqz v2, :cond_0
 
-    .line 169
+    .line 172
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 173
+    .line 176
     :goto_0
     const-string v0, "id"
 
@@ -1121,17 +1236,17 @@
 
     invoke-virtual {v0, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 174
+    .line 177
     invoke-virtual {v1, p2}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 175
+    .line 178
     invoke-virtual {p1, v1}, Landroid/widget/TabHost$TabSpec;->setIndicator(Landroid/view/View;)Landroid/widget/TabHost$TabSpec;
 
     move-result-object v0
 
     return-object v0
 
-    .line 171
+    .line 174
     :cond_0
     invoke-virtual {v0, p3}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
@@ -1142,7 +1257,7 @@
     .locals 0
 
     .prologue
-    .line 268
+    .line 293
     return-void
 .end method
 
@@ -1152,15 +1267,15 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 285
+    .line 310
     instance-of v0, p0, Landroid/widget/ListView;
 
     if-eqz v0, :cond_3
 
-    .line 286
+    .line 311
     check-cast p0, Landroid/widget/ListView;
 
-    .line 287
+    .line 312
     invoke-virtual {p0}, Landroid/widget/ListView;->getContext()Landroid/content/Context;
 
     move-result-object v0
@@ -1173,7 +1288,7 @@
 
     move-result v2
 
-    .line 288
+    .line 313
     if-eqz v2, :cond_0
 
     invoke-virtual {p0, v2}, Landroid/widget/ListView;->getTag(I)Ljava/lang/Object;
@@ -1188,12 +1303,12 @@
 
     if-nez v0, :cond_1
 
-    .line 309
+    .line 334
     :cond_0
     :goto_0
     return-void
 
-    .line 291
+    .line 316
     :cond_1
     const/4 v0, 0x1
 
@@ -1210,12 +1325,12 @@
     :goto_1
     aput v0, v3, v1
 
-    .line 292
+    .line 317
     sget-object v0, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
 
     invoke-virtual {p0, v2, v0}, Landroid/widget/ListView;->setTag(ILjava/lang/Object;)V
 
-    .line 293
+    .line 318
     invoke-virtual {p0}, Landroid/widget/ListView;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
 
     move-result-object v0
@@ -1228,7 +1343,7 @@
 
     goto :goto_0
 
-    .line 291
+    .line 316
     :cond_2
     invoke-virtual {p0}, Landroid/widget/ListView;->getAdapter()Landroid/widget/ListAdapter;
 
@@ -1240,16 +1355,16 @@
 
     goto :goto_1
 
-    .line 303
+    .line 328
     :cond_3
     instance-of v0, p0, Landroid/view/ViewGroup;
 
     if-eqz v0, :cond_0
 
-    .line 304
+    .line 329
     check-cast p0, Landroid/view/ViewGroup;
 
-    .line 305
+    .line 330
     :goto_2
     invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
 
@@ -1257,14 +1372,14 @@
 
     if-ge v1, v0, :cond_0
 
-    .line 306
+    .line 331
     invoke-virtual {p0, v1}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
     invoke-static {v0}, Lolive/app/Compat;->watchLists(Landroid/view/View;)V
 
-    .line 305
+    .line 330
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_2

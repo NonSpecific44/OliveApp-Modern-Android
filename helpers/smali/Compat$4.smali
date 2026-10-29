@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 293
+    .line 318
     iput-object p1, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
 
     iput-object p2, p0, Lolive/app/Compat$4;->val$lastCount:[I
@@ -51,7 +51,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 295
+    .line 320
     iget-object v0, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
 
     invoke-virtual {v0}, Landroid/widget/ListView;->getAdapter()Landroid/widget/ListAdapter;
@@ -62,7 +62,7 @@
 
     move v0, v1
 
-    .line 296
+    .line 321
     :goto_0
     iget-object v2, p0, Lolive/app/Compat$4;->val$lastCount:[I
 
@@ -72,26 +72,26 @@
 
     if-lez v0, :cond_0
 
-    .line 297
+    .line 322
     iget-object v2, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
 
     invoke-virtual {v2}, Landroid/widget/ListView;->scheduleLayoutAnimation()V
 
-    .line 298
+    .line 323
     iget-object v2, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
 
     invoke-virtual {v2}, Landroid/widget/ListView;->invalidate()V
 
-    .line 300
+    .line 325
     :cond_0
     iget-object v2, p0, Lolive/app/Compat$4;->val$lastCount:[I
 
     aput v0, v2, v1
 
-    .line 301
+    .line 326
     return-void
 
-    .line 295
+    .line 320
     :cond_1
     iget-object v0, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
 

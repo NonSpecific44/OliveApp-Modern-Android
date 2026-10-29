@@ -11,11 +11,11 @@ so it sends the player exactly the same commands the original did.
 
 ## Download
 
-**Latest: [1.0-modern.4](releases/1.0-modern.4/)**: download
-[`OliveApp-Modern-1.0-modern.4.apk`](releases/1.0-modern.4/OliveApp-Modern-1.0-modern.4.apk) (on the file page, use
+**Latest: [1.0-modern.5](releases/1.0-modern.5/)**: download
+[`OliveApp-Modern-1.0-modern.5.apk`](releases/1.0-modern.5/OliveApp-Modern-1.0-modern.5.apk) (on the file page, use
 the download button), copy it to your phone and open it. Allow "Install unknown apps" when prompted; if Play Protect
 warns about an unknown developer, choose **More details → Install anyway**. See the
-[release notes](releases/1.0-modern.4/RELEASE_NOTES.md).
+[release notes](releases/1.0-modern.5/RELEASE_NOTES.md).
 
 Each release folder has the APK's SHA-256 (`.sha256`), and the release notes list the signing certificate
 fingerprint, so you can check your download. All releases from 1.0-modern.4 on are signed with the same key, so

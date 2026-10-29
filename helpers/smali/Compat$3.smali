@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 258
+    .line 283
     iput-object p1, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
 
     iput-object p2, p0, Lolive/app/Compat$3;->val$drawable:Landroid/graphics/drawable/Drawable;
@@ -51,14 +51,14 @@
     .prologue
     const/high16 v2, 0x3f800000    # 1.0f
 
-    .line 260
+    .line 285
     iget-object v0, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
 
     iget-object v1, p0, Lolive/app/Compat$3;->val$drawable:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 261
+    .line 286
     iget-object v0, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
 
     invoke-virtual {v0}, Landroid/widget/ImageButton;->animate()Landroid/view/ViewPropertyAnimator;
@@ -91,6 +91,6 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 262
+    .line 287
     return-void
 .end method

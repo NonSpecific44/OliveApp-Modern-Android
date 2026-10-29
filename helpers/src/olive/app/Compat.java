@@ -3,6 +3,8 @@ package olive.app;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Arrays;
 import java.util.Collections;
 
 /** Helpers patched into the original bytecode to run on current Android versions. */
@@ -237,11 +240,33 @@ public final class Compat {
      * (a differently shaped container) pops in with an expressive squish-and-overshoot.
      */
     public static void setPlayIcon(final ImageButton button, final int resId) {
-        swapPlayIcon(button, button.getResources().getDrawable(resId), resId);
+        Drawable drawable = button.getResources().getDrawable(resId);
+        swapPlayIcon(button, drawable, playIconKey(drawable));
     }
 
     public static void setPlayIcon(ImageButton button, Drawable drawable) {
-        swapPlayIcon(button, drawable, drawable == null ? 0 : drawable.getConstantState() == null ? drawable.hashCode() : drawable.getConstantState().hashCode());
+        swapPlayIcon(button, drawable, playIconKey(drawable));
+    }
+
+    /**
+     * Identifies an icon by how it looks. The player re-sets the icon on every metadata poll with a
+     * freshly loaded drawable, so object identity changes every time even when the icon doesn't.
+     */
+    public static int playIconKey(Drawable drawable) {
+        if (drawable == null) {
+            return 0;
+        }
+        Drawable copy = drawable.getConstantState() == null ? drawable : drawable.getConstantState().newDrawable().mutate();
+        // Render at the icon's own size: its glyph insets are in dp and vanish in a smaller bitmap.
+        int w = Math.max(1, Math.min(copy.getIntrinsicWidth() > 0 ? copy.getIntrinsicWidth() : 96, 512));
+        int h = Math.max(1, Math.min(copy.getIntrinsicHeight() > 0 ? copy.getIntrinsicHeight() : 72, 512));
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        copy.setBounds(0, 0, w, h);
+        copy.draw(new Canvas(bitmap));
+        int[] pixels = new int[w * h];
+        bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
+        bitmap.recycle();
+        return Arrays.hashCode(pixels);
     }
 
     private static void swapPlayIcon(final ImageButton button, final Drawable drawable, int key) {
