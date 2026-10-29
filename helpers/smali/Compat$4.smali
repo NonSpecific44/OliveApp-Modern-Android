@@ -3,12 +3,12 @@
 .source "Compat.java"
 
 # interfaces
-.implements Landroid/view/ViewTreeObserver$OnGlobalLayoutListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lolive/app/Compat;->watchLists(Landroid/view/View;)V
+    value = Lolive/app/Compat;->swapPlayIcon(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;I)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,13 +18,13 @@
 
 
 # instance fields
-.field final synthetic val$lastCount:[I
+.field final synthetic val$button:Landroid/widget/ImageButton;
 
-.field final synthetic val$list:Landroid/widget/ListView;
+.field final synthetic val$drawable:Landroid/graphics/drawable/Drawable;
 
 
 # direct methods
-.method constructor <init>(Landroid/widget/ListView;[I)V
+.method constructor <init>(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 293
-    iput-object p1, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
+    .line 345
+    iput-object p1, p0, Lolive/app/Compat$4;->val$button:Landroid/widget/ImageButton;
 
-    iput-object p2, p0, Lolive/app/Compat$4;->val$lastCount:[I
+    iput-object p2, p0, Lolive/app/Compat$4;->val$drawable:Landroid/graphics/drawable/Drawable;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,63 +45,52 @@
 
 
 # virtual methods
-.method public onGlobalLayout()V
-    .locals 3
+.method public run()V
+    .locals 4
 
     .prologue
-    const/4 v1, 0x0
+    const/high16 v2, 0x3f800000    # 1.0f
 
-    .line 295
-    iget-object v0, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
+    .line 347
+    iget-object v0, p0, Lolive/app/Compat$4;->val$button:Landroid/widget/ImageButton;
 
-    invoke-virtual {v0}, Landroid/widget/ListView;->getAdapter()Landroid/widget/ListAdapter;
+    iget-object v1, p0, Lolive/app/Compat$4;->val$drawable:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    .line 348
+    iget-object v0, p0, Lolive/app/Compat$4;->val$button:Landroid/widget/ImageButton;
+
+    invoke-virtual {v0}, Landroid/widget/ImageButton;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
 
-    if-nez v0, :cond_1
+    invoke-virtual {v0, v2}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
 
-    move v0, v1
+    move-result-object v0
 
-    .line 296
-    :goto_0
-    iget-object v2, p0, Lolive/app/Compat$4;->val$lastCount:[I
+    invoke-virtual {v0, v2}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
 
-    aget v2, v2, v1
+    move-result-object v0
 
-    if-nez v2, :cond_0
+    const-wide/16 v2, 0x140
 
-    if-lez v0, :cond_0
+    invoke-virtual {v0, v2, v3}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
-    .line 297
-    iget-object v2, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
+    move-result-object v0
 
-    invoke-virtual {v2}, Landroid/widget/ListView;->scheduleLayoutAnimation()V
+    new-instance v1, Landroid/view/animation/OvershootInterpolator;
 
-    .line 298
-    iget-object v2, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
+    const/high16 v2, 0x40200000    # 2.5f
 
-    invoke-virtual {v2}, Landroid/widget/ListView;->invalidate()V
+    invoke-direct {v1, v2}, Landroid/view/animation/OvershootInterpolator;-><init>(F)V
 
-    .line 300
-    :cond_0
-    iget-object v2, p0, Lolive/app/Compat$4;->val$lastCount:[I
+    invoke-virtual {v0, v1}, Landroid/view/ViewPropertyAnimator;->setInterpolator(Landroid/animation/TimeInterpolator;)Landroid/view/ViewPropertyAnimator;
 
-    aput v0, v2, v1
+    move-result-object v0
 
-    .line 301
+    invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
+
+    .line 349
     return-void
-
-    .line 295
-    :cond_1
-    iget-object v0, p0, Lolive/app/Compat$4;->val$list:Landroid/widget/ListView;
-
-    invoke-virtual {v0}, Landroid/widget/ListView;->getAdapter()Landroid/widget/ListAdapter;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Landroid/widget/ListAdapter;->getCount()I
-
-    move-result v0
-
-    goto :goto_0
 .end method

@@ -143,6 +143,7 @@ glyphs = {
     'ic_m3_now_playing': sym('graphic_eq', '@color/m3_on_primary_container'),
     'ic_m3_skip_prev': sym('skip_previous', '@color/m3_on_secondary_container', True, 28),
     'ic_m3_skip_next': sym('skip_next', '@color/m3_on_secondary_container', True, 28),
+    'ic_m3_shuffle': sym('shuffle', OSV), 'ic_m3_refresh': sym('refresh', '@color/m3_primary'),
     'ic_m3_music_note': sym('music_note', OSV), 'g_album_placeholder': sym('album', OSV), 'ic_m3_check': sym('check', OSV),
 }
 for tab, icon in (('artists', 'artist'), ('albums', 'album'), ('tracks', 'music_note'), ('more', 'more_horiz')):
@@ -371,8 +372,8 @@ write('res/values/styles.xml', f'''{HDR}<resources>
 
     <style name="Olive.DialogBase" parent="Olive.Platform.Dialog">
 {COMMON}        <item name="android:windowBackground">@drawable/m3_dialog_bg</item>
-        <item name="android:windowMinWidthMajor">80%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowMinWidthMajor">@fraction/olive_dialog_major</item>
+        <item name="android:windowMinWidthMinor">@fraction/olive_dialog_minor</item>
         <item name="android:backgroundDimAmount">0.32</item>
     </style>
     <style name="OliveTheme.Dialog" parent="Olive.DialogBase"/>
@@ -518,8 +519,8 @@ layouts = {}
 
 layouts['loadtabs'] = f'''{HDR}<LinearLayout android:orientation="vertical" android:background="@color/m3_surface" android:layout_width="fill_parent" android:layout_height="fill_parent" {NS}>
     {top_bar(f"""<TextView style="@style/Text.TitleLarge" android:id="@+id/screenTitle" android:paddingLeft="12dip" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:singleLine="true" android:ellipsize="end" android:text="Olive" />
-        <ImageView android:id="@+id/searchButton" {ICON} android:src="@drawable/ic_m3_search" android:contentDescription="Search" android:onClick="onSearchButton" />
-        <ImageView android:id="@id/menuButton" {ICON} android:src="@drawable/ic_m3_more" android:contentDescription="More options" android:onClick="onMenuButton" />""", ' android:id="@+id/appBar"')}
+        <ImageView android:id="@+id/shuffleButton" {ICON} android:visibility="gone" android:src="@drawable/ic_m3_shuffle" android:contentDescription="Shuffle all" android:onClick="onShuffleButton" />
+        <ImageView android:id="@+id/searchButton" {ICON} android:src="@drawable/ic_m3_search" android:contentDescription="Search" android:onClick="onSearchButton" />""", ' android:id="@+id/appBar"')}
     <TabHost android:id="@android:id/tabhost" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0">
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
             <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0" />
@@ -527,6 +528,23 @@ layouts['loadtabs'] = f'''{HDR}<LinearLayout android:orientation="vertical" andr
             <TabWidget android:id="@android:id/tabs" android:background="@color/m3_surface_container" android:showDividers="none" android:tabStripEnabled="false" android:paddingTop="12dip" android:paddingBottom="16dip" android:layout_width="fill_parent" android:layout_height="80dip" />
         </LinearLayout>
     </TabHost>
+</LinearLayout>
+'''
+
+layouts['loadtabs-sw600dp'] = f'''{HDR}<LinearLayout android:orientation="horizontal" android:background="@color/m3_surface" android:layout_width="fill_parent" android:layout_height="fill_parent" {NS}>
+    <LinearLayout android:id="@+id/navRail" android:orientation="vertical" android:background="@color/m3_surface" android:paddingTop="76dip" android:layout_width="96dip" android:layout_height="fill_parent" />
+    <LinearLayout android:orientation="vertical" android:layout_width="0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+    {top_bar(f"""<TextView style="@style/Text.TitleLarge" android:id="@+id/screenTitle" android:paddingLeft="4dip" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:singleLine="true" android:ellipsize="end" android:text="Olive" />
+        <ImageView android:id="@+id/shuffleButton" {ICON} android:visibility="gone" android:src="@drawable/ic_m3_shuffle" android:contentDescription="Shuffle all" android:onClick="onShuffleButton" />
+        <ImageView android:id="@+id/searchButton" {ICON} android:src="@drawable/ic_m3_search" android:contentDescription="Search" android:onClick="onSearchButton" />""", ' android:id="@+id/appBar"')}
+    <TabHost android:id="@android:id/tabhost" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0" />
+        {mini_player()}
+            <TabWidget android:id="@android:id/tabs" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </TabHost>
+    </LinearLayout>
 </LinearLayout>
 '''
 
@@ -545,6 +563,12 @@ def original_id(name, tag, parent_id=None):
     if parent_id:
         scope = next(e for e in t.iter() if (e.get(A + 'id') or '').endswith('/' + parent_id))
     return next(e.get(A + 'id') for e in scope.iter(tag)).split('/')[1]
+
+
+INDICATOR = '''<FrameLayout android:id="@+id/pullIndicator" android:background="@drawable/m3_pull_bg" android:elevation="3dip" android:alpha="0"{pos} android:layout_width="40dip" android:layout_height="40dip">
+            <ImageView android:id="@+id/pullArrow" android:layout_gravity="center" android:layout_width="24dip" android:layout_height="24dip" android:src="@drawable/ic_m3_refresh" />
+            <ProgressBar android:id="@+id/pullSpinner" android:visibility="gone" android:indeterminateTint="@color/m3_primary" android:layout_gravity="center" android:layout_width="24dip" android:layout_height="24dip" />
+        </FrameLayout>'''
 
 
 def list_screen(title_id, list_id):
@@ -566,7 +590,8 @@ def list_screen(title_id, list_id):
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout android:id="@id/listTracks" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/playerLayout" android:layout_below="@id/menuTop">
-        <ListView android:id="@id/{list_id}" android:clipToPadding="false" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ListView android:id="@id/{list_id}" android:clipToPadding="false" android:paddingBottom="8dip" android:paddingLeft="@dimen/olive_list_gutter" android:paddingRight="@dimen/olive_list_gutter" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        {INDICATOR.format(pos=' android:layout_alignParentTop="true" android:layout_centerHorizontal="true"')}
     </RelativeLayout>
     <RelativeLayout android:id="@id/playerLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
         {mini_player(wrapper_ids=True)}
@@ -581,9 +606,11 @@ for name in ('listview', 'tracklisttab', 'searchresult'):
 
 def simple_list(name):
     lid = original_id(name, 'ListView')
-    return f'''{HDR}<LinearLayout android:orientation="vertical" android:background="@color/m3_surface" android:layout_width="fill_parent" android:layout_height="fill_parent" {NS}>
-    <ListView android:id="@id/{lid}" android:clipToPadding="false" android:paddingTop="4dip" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-</LinearLayout>
+    indicator = '' if name == 'moretab' else INDICATOR.format(pos=' android:layout_gravity="top|center_horizontal"')
+    return f'''{HDR}<FrameLayout android:background="@color/m3_surface" android:layout_width="fill_parent" android:layout_height="fill_parent" {NS}>
+        <ListView android:id="@id/{lid}" android:clipToPadding="false" android:paddingTop="4dip" android:paddingBottom="8dip" android:paddingLeft="@dimen/olive_list_gutter" android:paddingRight="@dimen/olive_list_gutter" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        {indicator}
+</FrameLayout>
 '''
 
 
@@ -618,7 +645,11 @@ layouts['radioitem'] = f'''{HDR}<LinearLayout android:gravity="center_vertical" 
 layouts['main'] = f'''{HDR}<LinearLayout android:orientation="vertical" android:paddingLeft="24dip" android:paddingTop="8dip" android:paddingRight="24dip" android:paddingBottom="16dip" android:layout_width="fill_parent" android:layout_height="wrap_content" {NS}>
     <TextView style="@style/Text.BodyMedium" android:id="@id/TextView03" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Enter your Olive's IP address or hostname. Over Tailscale, use its Tailscale IP (100.x.x.x) or MagicDNS name." />
     <EditText android:id="@id/tf_DevIP" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="16dip" android:hint="@string/typeIP" android:inputType="textUri" android:singleLine="true" />
-    <Button android:layout_gravity="right" android:id="@id/connect" android:layout_marginTop="16dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/connect" />
+    <LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="16dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/scanNetwork" style="@style/Olive.Button.Text" android:visibility="gone" android:layout_marginLeft="-12dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan a network" />
+        <View android:layout_width="0dip" android:layout_height="1dip" android:layout_weight="1.0" />
+        <Button android:id="@id/connect" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/connect" />
+    </LinearLayout>
     <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="16dip" android:paddingBottom="4dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
         <ProgressBar android:id="@id/searchLoadingIcon" android:layout_width="20dip" android:layout_height="20dip" android:layout_marginRight="12dip" />
         <TextView style="@style/Text.BodyMedium" android:id="@id/searchDevicesText" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:text="@string/selectDevs" />
@@ -652,11 +683,15 @@ layouts['playscreenlarge'] = f'''{HDR}<LinearLayout android:orientation="vertica
         <ImageView android:id="@id/volume" android:clickable="true" {ICON} android:src="@drawable/volume_0" android:contentDescription="Volume" />
         <ImageView android:id="@id/playlist" android:clickable="true" {ICON} android:src="@drawable/add2playlist" android:contentDescription="Add to playlist" />""")}
     <ImageView android:id="@id/major_genre" android:layout_width="fill_parent" android:layout_height="0dip" />
+    <LinearLayout android:id="@+id/adaptivePanes" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0">
+    <FrameLayout android:id="@+id/paneArt" android:paddingLeft="24dip" android:paddingRight="24dip" android:paddingTop="8dip" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/artwork" android:layout_gravity="center" android:background="@drawable/m3_artwork_bg" android:clipToOutline="true" android:elevation="2dip" android:layout_width="296dip" android:layout_height="296dip" android:scaleType="centerCrop" android:src="@drawable/artworknotfound" />
+    </FrameLayout>
+    <LinearLayout android:id="@+id/paneInfo" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0">
     <ScrollView android:fillViewport="true" android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1.0">
-        <LinearLayout android:orientation="vertical" android:paddingLeft="24dip" android:paddingRight="24dip" android:paddingTop="8dip" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:paddingLeft="24dip" android:paddingRight="24dip" android:paddingTop="0dip" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
             <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                <ImageView android:id="@id/artwork" android:layout_gravity="center_horizontal" android:background="@drawable/m3_artwork_bg" android:clipToOutline="true" android:elevation="2dip" android:layout_width="296dip" android:layout_height="296dip" android:scaleType="centerCrop" android:src="@drawable/artworknotfound" />
-                <TextView style="@style/Text.HeadlineSmall" android:fontFamily="@font/gsf_medium" android:id="@id/dctitle" android:paddingTop="24dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:ellipsize="end" />
+                <TextView style="@style/Text.HeadlineSmall" android:fontFamily="@font/gsf_medium" android:id="@id/dctitle" android:paddingTop="12dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:ellipsize="end" />
                 <LinearLayout android:orientation="vertical" android:id="@id/layoutMainData" android:paddingTop="4dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
                 {info_row('artistTitle', 'ARTIST', 'artist')}
                 {info_row('albumTitle', 'ALBUM', 'album')}
@@ -697,6 +732,8 @@ layouts['playscreenlarge'] = f'''{HDR}<LinearLayout android:orientation="vertica
         <ImageView android:id="@id/volumeDown" android:clickable="true" {ICON} android:src="@drawable/volumedown2" android:contentDescription="Volume down" />
         <SeekBar android:id="@id/volumeBar" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
         <ImageView android:id="@id/volumeUp" android:clickable="true" {ICON} android:src="@drawable/volumeup2" android:contentDescription="Volume up" />
+    </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 '''
@@ -805,11 +842,19 @@ layouts['addurl'] = f'''{HDR}<LinearLayout android:orientation="vertical" androi
 '''
 
 for name, content in layouts.items():
-    write(f'res/layout/{name}.xml', content)
+    # "name-qualifier" keys go to res/layout-qualifier/name.xml (e.g. the tablet shell).
+    base, _, qualifier = name.partition('-')
+    write(f'res/layout{"-" + qualifier if qualifier else ""}/{base}.xml', content)
+
+write('res/drawable/m3_pull_bg.xml', shape('@color/m3_surface_container_high', oval=True))
+write('res/values/dimens_adaptive.xml', f'{HDR}<resources>\n    <dimen name="olive_list_gutter">0dp</dimen>\n</resources>\n')
+write('res/values-sw600dp/dimens_adaptive.xml', f'{HDR}<resources>\n    <dimen name="olive_list_gutter">24dp</dimen>\n</resources>\n')
+write('res/values/fractions_adaptive.xml', f'{HDR}<resources>\n    <fraction name="olive_dialog_major">80%</fraction>\n    <fraction name="olive_dialog_minor">90%</fraction>\n</resources>\n')
+write('res/values-sw600dp/fractions_adaptive.xml', f'{HDR}<resources>\n    <fraction name="olive_dialog_major">45%</fraction>\n    <fraction name="olive_dialog_minor">60%</fraction>\n</resources>\n')
 
 # Tag keys used by the Compat helpers.
 p = pathlib.Path('res/values/ids.xml'); s = p.read_text()
-p.write_text(s.replace('</resources>', '    <item type="id" name="olive_play_icon" />\n    <item type="id" name="olive_list_watch" />\n</resources>'))
+p.write_text(s.replace('</resources>', '    <item type="id" name="olive_play_icon" />\n    <item type="id" name="olive_list_watch" />\n    <item type="id" name="olive_pull" />\n    <item type="id" name="olive_adaptive" />\n</resources>'))
 
 # --- Strings, manifest, sdk -------------------------------------------------------------------
 p = pathlib.Path('res/values/strings.xml'); s = p.read_text()
@@ -839,9 +884,10 @@ def ids(path):
 
 problems = []
 for name in layouts:
-    orig = original / 'res/layout' / f'{name}.xml'
+    base, _, qualifier = name.partition('-')
+    orig = original / 'res/layout' / f'{base}.xml'
     if orig.exists():
-        missing = ids(orig) - ids(f'res/layout/{name}.xml')
+        missing = ids(orig) - ids(f'res/layout{"-" + qualifier if qualifier else ""}/{base}.xml')
         if missing:
             problems.append(f'{name}: {sorted(missing)}')
 if problems:

@@ -28,6 +28,7 @@ import java.io.StringWriter;
 public class OliveApplication extends Application {
     private static final String CRASH_FILE = "last_crash.txt";
     private boolean crashChecked;
+    private int resumed;
 
     @Override
     public void onCreate() {
@@ -56,6 +57,10 @@ public class OliveApplication extends Application {
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             public void onActivityResumed(Activity activity) {
+                resumed++;
+                OliveMediaService.appVisible = true;
+                OliveMediaService.ensureRunning(activity);
+                OliveUi.attach(activity);
                 Compat.animateLists(activity);
                 if (!crashChecked) {
                     crashChecked = true;
@@ -64,12 +69,15 @@ public class OliveApplication extends Application {
             }
 
             public void onActivityCreated(Activity activity, Bundle state) {
+                OliveUi.orientationPolicy(activity);
             }
 
             public void onActivityStarted(Activity activity) {
             }
 
             public void onActivityPaused(Activity activity) {
+                resumed = Math.max(0, resumed - 1);
+                OliveMediaService.appVisible = resumed > 0;
             }
 
             public void onActivityStopped(Activity activity) {

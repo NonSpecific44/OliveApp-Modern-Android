@@ -28,7 +28,9 @@ edit("LoadDevices.smali",
      "invoke-virtual {p0, v6}, Lolive/app/LoadDevices;->setContentView(I)V\n",
      "invoke-virtual {p0, v6}, Lolive/app/LoadDevices;->setContentView(I)V\n\n"
      "    const/4 v6, 0x1\n\n"
-     "    invoke-static {p0, v6}, Lolive/app/Compat;->multicast(Landroid/content/Context;Z)V\n")
+     "    invoke-static {p0, v6}, Lolive/app/Compat;->multicast(Landroid/content/Context;Z)V\n\n"
+     # Scan known subnets with unicast probes (SSDP multicast doesn't cross routers) and offer "Scan a network".
+     "    invoke-static {p0}, Lolive/app/OliveNet;->setupPicker(Landroid/app/Activity;)V\n")
 edit("LoadDevices.smali",
      ".method public cancelSearch()V\n    .locals 2\n\n    .prologue\n",
      ".method public cancelSearch()V\n    .locals 2\n\n    .prologue\n"
@@ -136,6 +138,32 @@ f.write_text(t)
 n = sum(g.read_text().count("->setPlayIcon(") for g in root.glob("Playscreen*.smali"))
 assert n == 7, n
 print("player hooks:", n, "icon swaps,", k1, "genre colours,", k2, "progress styles")
+
+# 10. Inline loading indicator instead of modal "Working..." dialogs where the screen has one.
+n = 0
+for f in root.rglob("*.smali"):
+    t = f.read_text()
+    t2, k = re.subn(r"invoke-static(/range)? \{([^}]*)\}, Landroid/app/ProgressDialog;->show\(Landroid/content/Context;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZZ\)Landroid/app/ProgressDialog;",
+                    lambda m: f"invoke-static{m.group(1) or ''} {{{m.group(2)}}}, Lolive/app/OliveUi;->progress(Landroid/content/Context;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZZ)Landroid/app/ProgressDialog;", t)
+    if k:
+        f.write_text(t2)
+        n += k
+assert n == 29, n
+print("progress dialogs routed:", n)
+
+# 11. App bar shuffle button (replaces the "Shuffle all" menu item).
+with open(root / "LoadTabs.smali", "a") as f:
+    f.write("""
+.method public onShuffleButton(Landroid/view/View;)V
+    .locals 1
+
+    const-string v0, "shuffleAll"
+
+    invoke-static {p0, p1, v0}, Lolive/app/Compat;->tabAction(Landroid/app/TabActivity;Landroid/view/View;Ljava/lang/String;)V
+
+    return-void
+.end method
+""")
 
 # 5. Add compiled helper classes.
 for f in helpers.glob("*.smali"):

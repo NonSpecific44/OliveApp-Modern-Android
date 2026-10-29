@@ -11,11 +11,11 @@ so it sends the player exactly the same commands the original did.
 
 ## Download
 
-**Latest: [1.0-modern.4](releases/1.0-modern.4/)**: download
-[`OliveApp-Modern-1.0-modern.4.apk`](releases/1.0-modern.4/OliveApp-Modern-1.0-modern.4.apk) (on the file page, use
+**Latest: [1.0-modern.7](releases/1.0-modern.7/)**: download
+[`OliveApp-Modern-1.0-modern.7.apk`](releases/1.0-modern.7/OliveApp-Modern-1.0-modern.7.apk) (on the file page, use
 the download button), copy it to your phone and open it. Allow "Install unknown apps" when prompted; if Play Protect
 warns about an unknown developer, choose **More details → Install anyway**. See the
-[release notes](releases/1.0-modern.4/RELEASE_NOTES.md).
+[release notes](releases/1.0-modern.7/RELEASE_NOTES.md).
 
 Each release folder has the APK's SHA-256 (`.sha256`), and the release notes list the signing certificate
 fingerprint, so you can check your download. All releases from 1.0-modern.4 on are signed with the same key, so
@@ -25,10 +25,20 @@ Requires Android 6.0 or newer; designed for Android 14-16.
 
 ## Connecting to your Olive
 
-- **On the Olive's Wi-Fi:** the app searches for the player automatically.
+- **On the Olive's network:** the app finds the player automatically.
+- **Olive on a different subnet or VLAN** (e.g. phone on `10.50.1.x`, Olive on `10.50.10.x`): tap **Scan a network**
+  in the device picker and enter the Olive's network, e.g. `10.50.10.0/24`. The original automatic search uses
+  multicast, which routers don't forward between subnets; the scan uses ordinary connections that they do. Networks
+  where an Olive was found, and the network of any address you've connected to, are scanned automatically next time.
 - **Anywhere else** (mobile data with Tailscale or another VPN): type the player's address into the connect box,
-  e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet. Automatic
-  search uses local multicast, so it can't work across a VPN.
+  e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet.
+
+## Lock-screen controls
+
+While your Olive plays, Android's media player (lock screen, quick settings, notifications) shows the artwork,
+track and artist, with play/pause and skip controls, and your phone's volume keys control the Olive's volume, like
+Spotify Connect. This uses a standard Android media session, so it also works with car displays, watches and
+headset buttons.
 
 ## What was changed
 
@@ -40,10 +50,11 @@ Requires Android 6.0 or newer; designed for Android 14-16.
 | Crashes on buttons (`NetworkOnMainThreadException`) | Restores the permissive thread policy the app was written for |
 | Plain `http://` to the player blocked; Apache HttpClient removed from Android | Cleartext allowed; `org.apache.http.legacy` declared |
 | `AsyncTask` became serial: one slow request froze every command and the now-playing poll | All 85 call sites run on the parallel executor, as on Android 1.x/2.x |
-| Search / Refresh / Shuffle / Quit only reachable via the hardware MENU key | App bar search and ⋮ buttons |
+| Search / Refresh / Shuffle / Quit only reachable via the hardware MENU key | App bar search and shuffle buttons, pull to refresh |
 | Artwork cache in shared storage (blocked by scoped storage); manifest invalid for API 31+ | Private cache; manifest updated |
 | Voice search disabled on Android 11+ (package visibility) | `<queries>` entry for the speech recogniser |
 | No way to see why it closed | Built-in crash reporter: the next launch shows the error with a Copy button |
+| Automatic search couldn't find an Olive on another subnet/VLAN (multicast isn't routed) | Unicast network scan: automatic for known networks, plus **Scan a network** |
 | 2011 Android 1.x UI | Material 3 (below) |
 
 ### Material 3 / Android 16 design
@@ -55,6 +66,11 @@ Requires Android 6.0 or newer; designed for Android 14-16.
   text fields, 28dp dialogs, M3 Expressive split-track slider and a shape-morphing play button.
 - Emphasized-easing motion: tab fade-through, list items animating in, the player sliding up, press feedback.
 - The Android 12+ splash screen and an adaptive, themed launcher icon.
+- **Tablets and foldables:** a navigation rail instead of the bottom bar, a player that shows artwork and controls
+  side by side when wide and stacked when tall (adapting on rotation), and wider margins and narrower dialogs on
+  big screens. Phones stay in portrait.
+- Pull to refresh on the library lists, with an inline loading indicator in place of the old modal progress
+  dialogs.
 
 The Material Components library isn't used (it's only on Google's Maven); all of this is built from framework
 widgets, resources and a few helper classes.

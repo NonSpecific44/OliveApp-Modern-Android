@@ -31,7 +31,7 @@
     .end annotation
 
     .prologue
-    .line 86
+    .line 89
     iput-object p1, p0, Lolive/app/Compat$1;->val$tab:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -45,7 +45,7 @@
     .locals 1
 
     .prologue
-    .line 88
+    .line 91
     iget-object v0, p0, Lolive/app/Compat$1;->val$tab:Landroid/app/Activity;
 
     invoke-virtual {v0, p1}, Landroid/app/Activity;->onOptionsItemSelected(Landroid/view/MenuItem;)Z

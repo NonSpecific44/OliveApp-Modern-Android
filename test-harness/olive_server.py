@@ -1,5 +1,5 @@
 """Minimal fake Olive music server, enough to render the app's screens with data."""
-import http.server, io, sys, urllib.parse
+import http.server, io, socket, sys, threading, urllib.parse
 from xml.sax.saxutils import escape
 from PIL import Image, ImageDraw
 
@@ -37,13 +37,39 @@ def art(i):
         d.ellipse((150 - k, 150 - k, 150 + k, 150 + k), outline=(255, 255, 255))
     buf = io.BytesIO(); img.save(buf, "PNG"); return buf.getvalue()
 
+COMMANDS = []  # every request path, for tests that check what the app sent
+
+DESCRIPTION = """<?xml version="1.0"?><root xmlns="urn:schemas-upnp-org:device-1-0"><device>
+<deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType><friendlyName>Olive 4HD</friendlyName>
+</device></root>"""
+
+
+def ssdp_responder(port):
+    """Answers unicast SSDP M-SEARCH like a player would, pointing at the UPnP description."""
+    udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    udp.bind(("127.0.0.1", port))
+    while True:
+        data, addr = udp.recvfrom(2048)
+        if data.startswith(b"M-SEARCH"):
+            reply = (f"HTTP/1.1 200 OK\r\nST: upnp:rootdevice\r\nLOCATION: http://127.0.0.1:{PORT}/upnp/desc.xml\r\n"
+                     "USN: uuid:olive-test::upnp:rootdevice\r\n\r\n").encode()
+            udp.sendto(reply, addr)
+
+
 class H(http.server.BaseHTTPRequestHandler):
     def log_message(self, fmt, *a):
         sys.stderr.write("FAKE " + (fmt % a) + "\n")
     def do_GET(self):
         u = urllib.parse.urlparse(self.path); q = urllib.parse.parse_qs(u.query)
         ctype = "text/xml"
-        if u.path.startswith("/art/"):
+        if u.path != "/__log":
+            COMMANDS.append(self.path)
+        if u.path == "/__log":
+            body = "\n".join(COMMANDS)
+        elif u.path == "/upnp/desc.xml":
+            body = DESCRIPTION
+        elif u.path.startswith("/art/"):
             body, ctype = art(int(u.path[5:].split(".")[0])), "application/octet-stream"
         elif "getMetadata" in u.path:
             body = METADATA
@@ -68,4 +94,6 @@ class H(http.server.BaseHTTPRequestHandler):
         self.end_headers(); self.wfile.write(data)
     do_POST = do_GET
 
+if len(sys.argv) > 2:
+    threading.Thread(target=ssdp_responder, args=(int(sys.argv[2]),), daemon=True).start()
 http.server.ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
