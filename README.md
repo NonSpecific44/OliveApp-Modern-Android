@@ -11,11 +11,11 @@ so it sends the player exactly the same commands the original did.
 
 ## Download
 
-**Latest: [1.0-modern.6](releases/1.0-modern.6/)**: download
-[`OliveApp-Modern-1.0-modern.6.apk`](releases/1.0-modern.6/OliveApp-Modern-1.0-modern.6.apk) (on the file page, use
+**Latest: [1.0-modern.7](releases/1.0-modern.7/)**: download
+[`OliveApp-Modern-1.0-modern.7.apk`](releases/1.0-modern.7/OliveApp-Modern-1.0-modern.7.apk) (on the file page, use
 the download button), copy it to your phone and open it. Allow "Install unknown apps" when prompted; if Play Protect
 warns about an unknown developer, choose **More details → Install anyway**. See the
-[release notes](releases/1.0-modern.6/RELEASE_NOTES.md).
+[release notes](releases/1.0-modern.7/RELEASE_NOTES.md).
 
 Each release folder has the APK's SHA-256 (`.sha256`), and the release notes list the signing certificate
 fingerprint, so you can check your download. All releases from 1.0-modern.4 on are signed with the same key, so
@@ -50,7 +50,7 @@ headset buttons.
 | Crashes on buttons (`NetworkOnMainThreadException`) | Restores the permissive thread policy the app was written for |
 | Plain `http://` to the player blocked; Apache HttpClient removed from Android | Cleartext allowed; `org.apache.http.legacy` declared |
 | `AsyncTask` became serial: one slow request froze every command and the now-playing poll | All 85 call sites run on the parallel executor, as on Android 1.x/2.x |
-| Search / Refresh / Shuffle / Quit only reachable via the hardware MENU key | App bar search and ⋮ buttons |
+| Search / Refresh / Shuffle / Quit only reachable via the hardware MENU key | App bar search and shuffle buttons, pull to refresh |
 | Artwork cache in shared storage (blocked by scoped storage); manifest invalid for API 31+ | Private cache; manifest updated |
 | Voice search disabled on Android 11+ (package visibility) | `<queries>` entry for the speech recogniser |
 | No way to see why it closed | Built-in crash reporter: the next launch shows the error with a Copy button |
@@ -66,6 +66,11 @@ headset buttons.
   text fields, 28dp dialogs, M3 Expressive split-track slider and a shape-morphing play button.
 - Emphasized-easing motion: tab fade-through, list items animating in, the player sliding up, press feedback.
 - The Android 12+ splash screen and an adaptive, themed launcher icon.
+- **Tablets and foldables:** a navigation rail instead of the bottom bar, a player that shows artwork and controls
+  side by side when wide and stacked when tall (adapting on rotation), and wider margins and narrower dialogs on
+  big screens. Phones stay in portrait.
+- Pull to refresh on the library lists, with an inline loading indicator in place of the old modal progress
+  dialogs.
 
 The Material Components library isn't used (it's only on Google's Maven); all of this is built from framework
 widgets, resources and a few helper classes.

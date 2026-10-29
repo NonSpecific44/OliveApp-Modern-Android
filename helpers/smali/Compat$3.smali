@@ -3,12 +3,12 @@
 .source "Compat.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lolive/app/Compat;->swapPlayIcon(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;I)V
+    value = Lolive/app/Compat;->buildRail(Landroid/app/TabActivity;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -18,13 +18,13 @@
 
 
 # instance fields
-.field final synthetic val$button:Landroid/widget/ImageButton;
+.field final synthetic val$index:I
 
-.field final synthetic val$drawable:Landroid/graphics/drawable/Drawable;
+.field final synthetic val$tabs:Landroid/widget/TabHost;
 
 
 # direct methods
-.method constructor <init>(Landroid/widget/ImageButton;Landroid/graphics/drawable/Drawable;)V
+.method constructor <init>(Landroid/widget/TabHost;I)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -33,10 +33,10 @@
     .end annotation
 
     .prologue
-    .line 283
-    iput-object p1, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
+    .line 258
+    iput-object p1, p0, Lolive/app/Compat$3;->val$tabs:Landroid/widget/TabHost;
 
-    iput-object p2, p0, Lolive/app/Compat$3;->val$drawable:Landroid/graphics/drawable/Drawable;
+    iput p2, p0, Lolive/app/Compat$3;->val$index:I
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,52 +45,17 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 4
+.method public onClick(Landroid/view/View;)V
+    .locals 2
 
     .prologue
-    const/high16 v2, 0x3f800000    # 1.0f
+    .line 260
+    iget-object v0, p0, Lolive/app/Compat$3;->val$tabs:Landroid/widget/TabHost;
 
-    .line 285
-    iget-object v0, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
+    iget v1, p0, Lolive/app/Compat$3;->val$index:I
 
-    iget-object v1, p0, Lolive/app/Compat$3;->val$drawable:Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v0, v1}, Landroid/widget/TabHost;->setCurrentTab(I)V
 
-    invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 286
-    iget-object v0, p0, Lolive/app/Compat$3;->val$button:Landroid/widget/ImageButton;
-
-    invoke-virtual {v0}, Landroid/widget/ImageButton;->animate()Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v2}, Landroid/view/ViewPropertyAnimator;->scaleX(F)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v2}, Landroid/view/ViewPropertyAnimator;->scaleY(F)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    const-wide/16 v2, 0x140
-
-    invoke-virtual {v0, v2, v3}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    new-instance v1, Landroid/view/animation/OvershootInterpolator;
-
-    const/high16 v2, 0x40200000    # 2.5f
-
-    invoke-direct {v1, v2}, Landroid/view/animation/OvershootInterpolator;-><init>(F)V
-
-    invoke-virtual {v0, v1}, Landroid/view/ViewPropertyAnimator;->setInterpolator(Landroid/animation/TimeInterpolator;)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
-
-    .line 287
+    .line 261
     return-void
 .end method

@@ -108,7 +108,7 @@
 
     const/4 v0, 0x0
 
-    .line 101
+    .line 103
     new-instance v2, Ljava/io/File;
 
     invoke-virtual {p0}, Lolive/app/OliveApplication;->getFilesDir()Ljava/io/File;
@@ -119,25 +119,25 @@
 
     invoke-direct {v2, v1, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 102
+    .line 104
     invoke-virtual {v2}, Ljava/io/File;->exists()Z
 
     move-result v1
 
     if-nez v1, :cond_0
 
-    .line 141
+    .line 143
     :goto_0
     return-void
 
-    .line 107
+    .line 109
     :cond_0
     :try_start_0
     new-instance v1, Ljava/io/FileInputStream;
 
     invoke-direct {v1, v2}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
 
-    .line 108
+    .line 110
     invoke-virtual {v2}, Ljava/io/File;->length()J
 
     move-result-wide v4
@@ -146,13 +146,13 @@
 
     new-array v3, v3, [B
 
-    .line 110
+    .line 112
     :goto_1
     array-length v4, v3
 
     if-ge v0, v4, :cond_1
 
-    .line 111
+    .line 113
     array-length v4, v3
 
     sub-int/2addr v4, v0
@@ -161,14 +161,14 @@
 
     move-result v4
 
-    .line 112
+    .line 114
     if-gez v4, :cond_2
 
-    .line 117
+    .line 119
     :cond_1
     invoke-virtual {v1}, Ljava/io/FileInputStream;->close()V
 
-    .line 118
+    .line 120
     new-instance v1, Ljava/lang/String;
 
     const/4 v4, 0x0
@@ -180,15 +180,15 @@
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_1
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 122
+    .line 124
     invoke-virtual {v2}, Ljava/io/File;->delete()Z
 
-    .line 124
+    .line 126
     invoke-virtual {p0}, Lolive/app/OliveApplication;->getApplicationContext()Landroid/content/Context;
 
     move-result-object v2
 
-    .line 126
+    .line 128
     :try_start_1
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
@@ -196,7 +196,7 @@
 
     const-string v3, "Olive closed unexpectedly last time"
 
-    .line 127
+    .line 129
     invoke-virtual {v0, v3}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v3
@@ -211,7 +211,7 @@
 
     move-result-object v4
 
-    .line 129
+    .line 131
     invoke-virtual {v1}, Ljava/lang/String;->length()I
 
     move-result v0
@@ -253,7 +253,7 @@
 
     move-result-object v0
 
-    .line 128
+    .line 130
     invoke-virtual {v3, v0}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -264,7 +264,7 @@
 
     invoke-direct {v4, p0, v2, v1}, Lolive/app/OliveApplication$3;-><init>(Lolive/app/OliveApplication;Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 130
+    .line 132
     invoke-virtual {v0, v3, v4}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
@@ -273,36 +273,36 @@
 
     const/4 v2, 0x0
 
-    .line 137
+    .line 139
     invoke-virtual {v0, v1, v2}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object v0
 
-    .line 138
+    .line 140
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->show()Landroid/app/AlertDialog;
     :try_end_1
     .catch Ljava/lang/RuntimeException; {:try_start_1 .. :try_end_1} :catch_0
 
     goto/16 :goto_0
 
-    .line 139
+    .line 141
     :catch_0
     move-exception v0
 
     goto/16 :goto_0
 
-    .line 115
+    .line 117
     :cond_2
     add-int/2addr v0, v4
 
-    .line 116
+    .line 118
     goto :goto_1
 
-    .line 119
+    .line 121
     :catch_1
     move-exception v0
 
-    .line 122
+    .line 124
     invoke-virtual {v2}, Ljava/io/File;->delete()Z
 
     goto/16 :goto_0
@@ -312,13 +312,13 @@
 
     invoke-virtual {v2}, Ljava/io/File;->delete()Z
 
-    .line 123
+    .line 125
     throw v0
 
     :cond_3
     move-object v0, v1
 
-    .line 129
+    .line 131
     goto :goto_2
 .end method
 
@@ -326,7 +326,7 @@
     .locals 3
 
     .prologue
-    .line 94
+    .line 96
     :try_start_0
     invoke-virtual {p0}, Lolive/app/OliveApplication;->getPackageManager()Landroid/content/pm/PackageManager;
 
@@ -346,15 +346,15 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 96
+    .line 98
     :goto_0
     return-object v0
 
-    .line 95
+    .line 97
     :catch_0
     move-exception v0
 
-    .line 96
+    .line 98
     const-string v0, "?"
 
     goto :goto_0
@@ -393,6 +393,6 @@
 
     invoke-virtual {p0, v0}, Lolive/app/OliveApplication;->registerActivityLifecycleCallbacks(Landroid/app/Application$ActivityLifecycleCallbacks;)V
 
-    .line 90
+    .line 92
     return-void
 .end method

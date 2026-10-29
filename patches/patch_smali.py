@@ -139,6 +139,32 @@ n = sum(g.read_text().count("->setPlayIcon(") for g in root.glob("Playscreen*.sm
 assert n == 7, n
 print("player hooks:", n, "icon swaps,", k1, "genre colours,", k2, "progress styles")
 
+# 10. Inline loading indicator instead of modal "Working..." dialogs where the screen has one.
+n = 0
+for f in root.rglob("*.smali"):
+    t = f.read_text()
+    t2, k = re.subn(r"invoke-static(/range)? \{([^}]*)\}, Landroid/app/ProgressDialog;->show\(Landroid/content/Context;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZZ\)Landroid/app/ProgressDialog;",
+                    lambda m: f"invoke-static{m.group(1) or ''} {{{m.group(2)}}}, Lolive/app/OliveUi;->progress(Landroid/content/Context;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZZ)Landroid/app/ProgressDialog;", t)
+    if k:
+        f.write_text(t2)
+        n += k
+assert n == 29, n
+print("progress dialogs routed:", n)
+
+# 11. App bar shuffle button (replaces the "Shuffle all" menu item).
+with open(root / "LoadTabs.smali", "a") as f:
+    f.write("""
+.method public onShuffleButton(Landroid/view/View;)V
+    .locals 1
+
+    const-string v0, "shuffleAll"
+
+    invoke-static {p0, p1, v0}, Lolive/app/Compat;->tabAction(Landroid/app/TabActivity;Landroid/view/View;Ljava/lang/String;)V
+
+    return-void
+.end method
+""")
+
 # 5. Add compiled helper classes.
 for f in helpers.glob("*.smali"):
     shutil.copy(f, root / f.name)

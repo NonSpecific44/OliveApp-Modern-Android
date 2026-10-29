@@ -60,6 +60,7 @@ public class OliveApplication extends Application {
                 resumed++;
                 OliveMediaService.appVisible = true;
                 OliveMediaService.ensureRunning(activity);
+                OliveUi.attach(activity);
                 Compat.animateLists(activity);
                 if (!crashChecked) {
                     crashChecked = true;
@@ -68,6 +69,7 @@ public class OliveApplication extends Application {
             }
 
             public void onActivityCreated(Activity activity, Bundle state) {
+                OliveUi.orientationPolicy(activity);
             }
 
             public void onActivityStarted(Activity activity) {

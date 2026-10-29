@@ -75,7 +75,7 @@ activities = [
     ('Playscreen', ''), ('ShowPlaylists', ' android:windowSoftInputMode="stateHidden"'), ('SearchListTab', ''),
     ('PlaylistTab', ''), ('SourcesTab', ''), ('IRadioTab', ''), ('AddURLTab', ''), ('ZonesTab', ''), ('SettingsTab', ''),
 ]
-cfg = 'android:configChanges="keyboardHidden|orientation|screenSize" android:screenOrientation="portrait"'
+cfg = 'android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout"'
 acts = '\n'.join(f'        <activity android:name=".{n}" {cfg}{extra} android:exported="false"/>' for n, extra in activities)
 pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="olive.app">
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -108,6 +108,6 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
 
 p = pathlib.Path('apktool.yml'); s = p.read_text()
 s = s.replace("  minSdkVersion: 6\n", "  minSdkVersion: 21\n  targetSdkVersion: 34\n")
-s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 7\n  versionName: 1.0-modern.6\n")
+s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 8\n  versionName: 1.0-modern.7\n")
 p.write_text(s)
 print("resources patched")

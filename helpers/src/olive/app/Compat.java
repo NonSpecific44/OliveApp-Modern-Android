@@ -178,12 +178,17 @@ public final class Compat {
         return spec.setIndicator(tab);
     }
 
-    /** Keeps the app bar title and search button in step with the selected tab. */
+    /**
+     * Keeps the app bar (title, search and shuffle buttons) and the navigation rail (tablets) in step
+     * with the selected tab, and animates tab changes.
+     */
     public static void setupShell(final TabActivity host) {
         final TabHost tabs = host.getTabHost();
         final TextView title = (TextView) host.findViewById(id(host, "id", "screenTitle"));
         final View search = host.findViewById(id(host, "id", "searchButton"));
+        final View shuffle = host.findViewById(id(host, "id", "shuffleButton"));
         final boolean[] animate = {false};
+        buildRail(host);
         TabHost.OnTabChangeListener listener = new TabHost.OnTabChangeListener() {
             public void onTabChanged(String tag) {
                 View tab = tabs.getCurrentTabView();
@@ -194,8 +199,13 @@ public final class Compat {
                 if (search != null) {
                     search.setVisibility(findTabMenuItem(host, search, "search") != null ? View.VISIBLE : View.GONE);
                 }
+                if (shuffle != null) {
+                    shuffle.setVisibility(findTabMenuItem(host, shuffle, "shuffleAll") != null ? View.VISIBLE : View.GONE);
+                }
+                View railItem = selectRailItem(host, tabs.getCurrentTab());
                 if (animate[0]) {
-                    View pill = tab == null ? null : tab.findViewById(id(host, "id", "tabPill"));
+                    View pill = (railItem != null ? railItem : tab) == null ? null
+                            : (railItem != null ? railItem : tab).findViewById(id(host, "id", "tabPill"));
                     if (pill != null) {
                         pill.setScaleX(0.4f);
                         pill.animate().scaleX(1f).setDuration(350).setInterpolator(EMPHASIZED).start();
@@ -216,6 +226,58 @@ public final class Compat {
         animate[0] = true;
     }
 
+    /**
+     * On tablets the layout has a navigation rail ("navRail") instead of the bottom bar: the TabWidget is
+     * hidden and the rail gets one item per tab, mirroring the tab indicators.
+     */
+    public static void buildRail(final TabActivity host) {
+        View railView = host.findViewById(id(host, "id", "navRail"));
+        if (!(railView instanceof ViewGroup)) {
+            return;
+        }
+        ViewGroup rail = (ViewGroup) railView;
+        rail.removeAllViews();
+        final TabHost tabs = host.getTabHost();
+        android.widget.TabWidget widget = tabs.getTabWidget();
+        float density = host.getResources().getDisplayMetrics().density;
+        for (int i = 0; i < widget.getTabCount(); i++) {
+            View source = widget.getChildTabViewAt(i);
+            TextView sourceLabel = (TextView) source.findViewById(id(host, "id", "tabLabel"));
+            ImageView sourceIcon = (ImageView) source.findViewById(id(host, "id", "tabIcon"));
+            View item = host.getLayoutInflater().inflate(id(host, "layout", "olive_tab"), rail, false);
+            android.widget.LinearLayout.LayoutParams lp = new android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.topMargin = Math.round(12 * density);
+            item.setLayoutParams(lp);
+            item.setPadding(0, Math.round(4 * density), 0, Math.round(4 * density));
+            ((ImageView) item.findViewById(id(host, "id", "tabIcon"))).setImageDrawable(
+                    sourceIcon.getDrawable() == null ? null : sourceIcon.getDrawable().getConstantState().newDrawable());
+            ((TextView) item.findViewById(id(host, "id", "tabLabel"))).setText(sourceLabel.getText());
+            item.setContentDescription(sourceLabel.getText());
+            final int index = i;
+            item.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    tabs.setCurrentTab(index);
+                }
+            });
+            rail.addView(item);
+        }
+        widget.setVisibility(View.GONE);
+        selectRailItem(host, tabs.getCurrentTab());
+    }
+
+    private static View selectRailItem(TabActivity host, int index) {
+        View railView = host.findViewById(id(host, "id", "navRail"));
+        if (!(railView instanceof ViewGroup)) {
+            return null;
+        }
+        ViewGroup rail = (ViewGroup) railView;
+        for (int i = 0; i < rail.getChildCount(); i++) {
+            rail.getChildAt(i).setSelected(i == index);
+        }
+        return index >= 0 && index < rail.getChildCount() ? rail.getChildAt(index) : null;
+    }
+
     private static MenuItem findTabMenuItem(TabActivity host, View anchor, String name) {
         Activity tab = host.getCurrentActivity();
         if (tab == null) {
@@ -227,7 +289,7 @@ public final class Compat {
         return menu.findItem(id(host, "id", name));
     }
 
-    /** Runs one of the current tab's option-menu actions (used by the app bar's search button). */
+    /** Runs one of the current tab's option-menu actions (used by the app bar's search and shuffle buttons). */
     public static void tabAction(TabActivity host, View anchor, String name) {
         MenuItem item = findTabMenuItem(host, anchor, name);
         if (item != null) {

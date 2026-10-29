@@ -40,7 +40,10 @@
     .locals 0
 
     .prologue
-    .line 71
+    .line 72
+    invoke-static {p1}, Lolive/app/OliveUi;->orientationPolicy(Landroid/app/Activity;)V
+
+    .line 73
     return-void
 .end method
 
@@ -48,7 +51,7 @@
     .locals 0
 
     .prologue
-    .line 88
+    .line 90
     return-void
 .end method
 
@@ -58,7 +61,7 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 77
+    .line 79
     iget-object v1, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
 
     iget-object v2, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
@@ -75,7 +78,7 @@
 
     invoke-static {v1, v2}, Lolive/app/OliveApplication;->access$102(Lolive/app/OliveApplication;I)I
 
-    .line 78
+    .line 80
     iget-object v1, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
 
     invoke-static {v1}, Lolive/app/OliveApplication;->access$100(Lolive/app/OliveApplication;)I
@@ -89,7 +92,7 @@
     :cond_0
     sput-boolean v0, Lolive/app/OliveMediaService;->appVisible:Z
 
-    .line 79
+    .line 81
     return-void
 .end method
 
@@ -111,9 +114,12 @@
     invoke-static {p1}, Lolive/app/OliveMediaService;->ensureRunning(Landroid/app/Activity;)V
 
     .line 63
-    invoke-static {p1}, Lolive/app/Compat;->animateLists(Landroid/app/Activity;)V
+    invoke-static {p1}, Lolive/app/OliveUi;->attach(Landroid/app/Activity;)V
 
     .line 64
+    invoke-static {p1}, Lolive/app/Compat;->animateLists(Landroid/app/Activity;)V
+
+    .line 65
     iget-object v0, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
 
     invoke-static {v0}, Lolive/app/OliveApplication;->access$200(Lolive/app/OliveApplication;)Z
@@ -122,17 +128,17 @@
 
     if-nez v0, :cond_0
 
-    .line 65
+    .line 66
     iget-object v0, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
 
     invoke-static {v0, v1}, Lolive/app/OliveApplication;->access$202(Lolive/app/OliveApplication;Z)Z
 
-    .line 66
+    .line 67
     iget-object v0, p0, Lolive/app/OliveApplication$2;->this$0:Lolive/app/OliveApplication;
 
     invoke-static {v0, p1}, Lolive/app/OliveApplication;->access$300(Lolive/app/OliveApplication;Landroid/app/Activity;)V
 
-    .line 68
+    .line 69
     :cond_0
     return-void
 .end method
@@ -141,7 +147,7 @@
     .locals 0
 
     .prologue
-    .line 85
+    .line 87
     return-void
 .end method
 
@@ -149,7 +155,7 @@
     .locals 0
 
     .prologue
-    .line 74
+    .line 76
     return-void
 .end method
 
@@ -157,6 +163,6 @@
     .locals 0
 
     .prologue
-    .line 82
+    .line 84
     return-void
 .end method
