@@ -759,6 +759,11 @@ layouts['settings'] = f'''{HDR}<LinearLayout android:orientation="vertical" andr
         <ProgressBar android:id="@id/waiting" android:layout_width="24dip" android:layout_height="24dip" />
         <ToggleButton android:id="@id/toggleStandby" android:textOn="On" android:textOff="Off" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView style="@style/Text.LabelLarge" android:textColor="@color/m3_primary" android:paddingLeft="16dip" android:paddingTop="24dip" android:paddingBottom="8dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="About" />
+    <LinearLayout android:id="@+id/updateRow" android:orientation="vertical" android:gravity="center_vertical" android:clickable="true" android:background="?android:attr/selectableItemBackground" android:minHeight="72dip" android:paddingLeft="16dip" android:paddingRight="16dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView style="@style/Text.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Check for updates" />
+        <TextView style="@style/Text.BodyMedium" android:id="@+id/updateVersion" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>
 '''
 

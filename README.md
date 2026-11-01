@@ -11,15 +11,17 @@ so it sends the player exactly the same commands the original did.
 
 ## Download
 
-**Latest: [1.0-modern.7](releases/1.0-modern.7/)**: download
-[`OliveApp-Modern-1.0-modern.7.apk`](releases/1.0-modern.7/OliveApp-Modern-1.0-modern.7.apk) (on the file page, use
-the download button), copy it to your phone and open it. Allow "Install unknown apps" when prompted; if Play Protect
-warns about an unknown developer, choose **More details → Install anyway**. See the
-[release notes](releases/1.0-modern.7/RELEASE_NOTES.md).
+Get **`OliveApp-modern-<version>.apk`** from the [latest release](../../releases/latest), copy it to your phone and
+open it. Allow "Install unknown apps" when prompted; if Play Protect warns about an unknown developer, choose
+**More details → Install anyway**.
 
-Each release folder has the APK's SHA-256 (`.sha256`), and the release notes list the signing certificate
-fingerprint, so you can check your download. All releases from 1.0-modern.4 on are signed with the same key, so
-later versions install as updates.
+After that the app keeps itself up to date: it checks for a new release once a day (or from **Settings → Check for
+updates**), shows what's new, and installs it once you confirm. Before installing, it verifies the download
+against its published SHA-256 and checks that it's signed with the same key as the installed app.
+
+Each release lists the APK's SHA-256 (also attached as a `.sha256` file) and the signing certificate fingerprint,
+`64:E6:76:8E:…:45:F3`, so you can check a download by hand. Every release from 1.0-modern.4 on uses the same key, so
+newer versions install as updates.
 
 Requires Android 6.0 or newer; designed for Android 14-16.
 
@@ -102,6 +104,17 @@ OLIVE_KEYSTORE=/path/to/release.p12 OLIVE_KEYSTORE_PASS=... \
 
 The release key is never committed (see `.gitignore`); without `OLIVE_KEYSTORE` the APK is left unsigned in
 `out/olive-unsigned.apk`. Builds are reproducible: the app code and resources match the release byte for byte.
+
+### Releasing
+
+1. Bump `versionCode` (always increasing) and `versionName` (`x.y.z`) in `patches/patch_resources.py`.
+2. Build and sign with the release key (above), then add `releases/<x.y.z>/` with `OliveApp-modern-<x.y.z>.apk`,
+   its `.sha256` (`sha256sum OliveApp-modern-<x.y.z>.apk > OliveApp-modern-<x.y.z>.apk.sha256`) and
+   `RELEASE_NOTES.md`.
+3. Merge to `main`. The [Publish release](.github/workflows/publish-release.yml) workflow creates the GitHub release
+   `v<x.y.z>` with the APK and checksum, and installed apps offer it as an update.
+
+`releases/1.0-modern.*` are the builds from before the 1.0.0 numbering, kept for reference.
 
 ### Testing
 

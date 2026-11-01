@@ -23,13 +23,13 @@
     .locals 0
 
     .prologue
-    .line 85
+    .line 86
     invoke-direct {p0, p1}, Landroid/app/ProgressDialog;-><init>(Landroid/content/Context;)V
 
-    .line 86
+    .line 87
     iput-object p2, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
-    .line 87
+    .line 88
     return-void
 .end method
 
@@ -39,12 +39,12 @@
     .locals 1
 
     .prologue
-    .line 106
+    .line 107
     iget-object v0, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
     invoke-virtual {v0}, Lolive/app/OliveUi$Pull;->finishLoading()V
 
-    .line 107
+    .line 108
     return-void
 .end method
 
@@ -52,12 +52,12 @@
     .locals 1
 
     .prologue
-    .line 101
+    .line 102
     iget-object v0, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
     invoke-virtual {v0}, Lolive/app/OliveUi$Pull;->finishLoading()V
 
-    .line 102
+    .line 103
     return-void
 .end method
 
@@ -65,12 +65,12 @@
     .locals 1
 
     .prologue
-    .line 111
+    .line 112
     iget-object v0, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
     invoke-virtual {v0}, Lolive/app/OliveUi$Pull;->finishLoading()V
 
-    .line 112
+    .line 113
     return-void
 .end method
 
@@ -78,7 +78,7 @@
     .locals 1
 
     .prologue
-    .line 91
+    .line 92
     iget-object v0, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
     iget-boolean v0, v0, Lolive/app/OliveUi$Pull;->loading:Z
@@ -90,11 +90,11 @@
     .locals 1
 
     .prologue
-    .line 96
+    .line 97
     iget-object v0, p0, Lolive/app/OliveUi$InlineProgress;->pull:Lolive/app/OliveUi$Pull;
 
     invoke-virtual {v0}, Lolive/app/OliveUi$Pull;->startLoading()V
 
-    .line 97
+    .line 98
     return-void
 .end method

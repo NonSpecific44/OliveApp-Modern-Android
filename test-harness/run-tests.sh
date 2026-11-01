@@ -42,7 +42,11 @@ if [ ! -f "$HERE/libs/androidx-test-monitor.jar" ]; then
 fi
 
 # Robolectric reads the merged manifest and resource APK from these paths.
-sed 's#<uses-permission#<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34"/>\n    <uses-permission#' \
+# apktool keeps the SDK levels and version in apktool.yml and adds them at build time; add them for Robolectric.
+VERSION_CODE=$(sed -n "s/^  versionCode: *'*\([0-9]*\)'*/\1/p" "$BUILD/patched/apktool.yml")
+VERSION_NAME=$(sed -n "s/^  versionName: *//p" "$BUILD/patched/apktool.yml")
+sed -e 's#<uses-permission#<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34"/>\n    <uses-permission#' \
+    -e "s#package=\"olive.app\"#package=\"olive.app\" android:versionCode=\"$VERSION_CODE\" android:versionName=\"$VERSION_NAME\"#" \
     "$BUILD/patched/AndroidManifest.xml" > "$HERE/AndroidManifest.xml"
 cat > "$HERE/src/test/resources/com/android/tools/test_config.properties" <<EOF
 android_merged_manifest=$HERE/AndroidManifest.xml

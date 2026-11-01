@@ -85,6 +85,7 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <uses-feature android:name="android.hardware.wifi" android:required="false"/>
     <queries>
         <intent>
@@ -102,12 +103,13 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
         <activity android:name=".SearchEntry" android:label="Search" android:theme="@style/OliveTheme.Dialog" android:windowSoftInputMode="stateVisible" android:exported="false"/>
 {acts}
         <service android:name=".OliveMediaService" android:exported="false" android:foregroundServiceType="mediaPlayback"/>
+        <receiver android:name=".OliveUpdateReceiver" android:exported="false"/>
     </application>
 </manifest>
 ''')
 
 p = pathlib.Path('apktool.yml'); s = p.read_text()
 s = s.replace("  minSdkVersion: 6\n", "  minSdkVersion: 21\n  targetSdkVersion: 34\n")
-s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 8\n  versionName: 1.0-modern.7\n")
+s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 9\n  versionName: 1.0.0\n")
 p.write_text(s)
 print("resources patched")

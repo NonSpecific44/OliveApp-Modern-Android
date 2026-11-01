@@ -61,6 +61,9 @@ public class OliveApplication extends Application {
                 OliveMediaService.appVisible = true;
                 OliveMediaService.ensureRunning(activity);
                 OliveUi.attach(activity);
+                if (activity.getParent() == null && "olive.app.LoadTabs".equals(activity.getClass().getName())) {
+                    OliveUpdater.checkOnLaunch(activity);
+                }
                 Compat.animateLists(activity);
                 if (!crashChecked) {
                     crashChecked = true;

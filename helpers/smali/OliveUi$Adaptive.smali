@@ -32,16 +32,16 @@
     .locals 0
 
     .prologue
-    .line 312
+    .line 313
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 313
+    .line 314
     iput-object p1, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
 
-    .line 314
+    .line 315
     iput-object p2, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
-    .line 315
+    .line 316
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .locals 4
 
     .prologue
-    .line 318
+    .line 319
     const-string v0, "adaptivePanes"
 
     invoke-static {p0, v0}, Lolive/app/OliveUi;->id(Landroid/content/Context;Ljava/lang/String;)I
@@ -60,17 +60,17 @@
 
     move-result-object v1
 
-    .line 319
+    .line 320
     instance-of v0, v1, Landroid/widget/LinearLayout;
 
     if-nez v0, :cond_1
 
-    .line 332
+    .line 333
     :cond_0
     :goto_0
     return-void
 
-    .line 322
+    .line 323
     :cond_1
     const-string v0, "olive_adaptive"
 
@@ -78,14 +78,14 @@
 
     move-result v2
 
-    .line 323
+    .line 324
     invoke-virtual {v1, v2}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
     if-nez v0, :cond_0
 
-    .line 326
+    .line 327
     new-instance v3, Lolive/app/OliveUi$Adaptive;
 
     move-object v0, v1
@@ -94,20 +94,20 @@
 
     invoke-direct {v3, p0, v0}, Lolive/app/OliveUi$Adaptive;-><init>(Landroid/app/Activity;Landroid/widget/LinearLayout;)V
 
-    .line 327
+    .line 328
     invoke-virtual {v1, v2, v3}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
-    .line 328
+    .line 329
     invoke-virtual {v1, v3}, Landroid/view/View;->addOnLayoutChangeListener(Landroid/view/View$OnLayoutChangeListener;)V
 
-    .line 329
+    .line 330
     invoke-virtual {v1}, Landroid/view/View;->getWidth()I
 
     move-result v0
 
     if-lez v0, :cond_0
 
-    .line 330
+    .line 331
     invoke-virtual {v1}, Landroid/view/View;->getWidth()I
 
     move-result v0
@@ -135,24 +135,24 @@
 
     const/4 v2, 0x0
 
-    .line 348
+    .line 349
     if-lez p1, :cond_0
 
     if-gtz p2, :cond_1
 
-    .line 380
+    .line 381
     :cond_0
     :goto_0
     return-void
 
-    .line 351
+    .line 352
     :cond_1
     iput p1, p0, Lolive/app/OliveUi$Adaptive;->lastW:I
 
-    .line 352
+    .line 353
     iput p2, p0, Lolive/app/OliveUi$Adaptive;->lastH:I
 
-    .line 353
+    .line 354
     iget-object v0, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
     iget-object v3, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
@@ -167,7 +167,7 @@
 
     move-result-object v3
 
-    .line 354
+    .line 355
     iget-object v0, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
     iget-object v4, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
@@ -182,7 +182,7 @@
 
     move-result-object v4
 
-    .line 355
+    .line 356
     iget-object v0, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
     iget-object v5, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
@@ -197,14 +197,14 @@
 
     move-result-object v5
 
-    .line 356
+    .line 357
     if-eqz v3, :cond_0
 
     if-eqz v4, :cond_0
 
     if-eqz v5, :cond_0
 
-    .line 359
+    .line 360
     int-to-float v0, p1
 
     int-to-float v6, p2
@@ -219,7 +219,7 @@
 
     move v0, v1
 
-    .line 360
+    .line 361
     :goto_1
     iget-object v6, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
@@ -230,7 +230,7 @@
     :cond_2
     invoke-virtual {v6, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 361
+    .line 362
     iget-object v6, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
 
     iget-object v1, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
@@ -256,7 +256,7 @@
 
     move-result v1
 
-    .line 362
+    .line 363
     iget-object v6, p0, Lolive/app/OliveUi$Adaptive;->activity:Landroid/app/Activity;
 
     const/high16 v7, 0x42400000    # 48.0f
@@ -265,24 +265,24 @@
 
     move-result v6
 
-    .line 364
-    if-eqz v0, :cond_7
-
     .line 365
-    new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
-
-    invoke-direct {v0, v2, v9, v10}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
-
-    invoke-virtual {v3, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    if-eqz v0, :cond_7
 
     .line 366
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v0, v2, v9, v10}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
-    invoke-virtual {v4, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-virtual {v3, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
     .line 367
+    new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
+
+    invoke-direct {v0, v2, v9, v10}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
+
+    invoke-virtual {v4, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 368
     int-to-float v0, p1
 
     const/high16 v2, 0x40000000    # 2.0f
@@ -305,13 +305,13 @@
 
     float-to-int v0, v0
 
-    .line 373
+    .line 374
     :goto_3
     invoke-virtual {v5}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v1
 
-    .line 374
+    .line 375
     iget v2, v1, Landroid/view/ViewGroup$LayoutParams;->width:I
 
     if-ne v2, v0, :cond_3
@@ -320,17 +320,17 @@
 
     if-eq v2, v0, :cond_4
 
-    .line 375
+    .line 376
     :cond_3
     iput v0, v1, Landroid/view/ViewGroup$LayoutParams;->width:I
 
-    .line 376
+    .line 377
     iput v0, v1, Landroid/view/ViewGroup$LayoutParams;->height:I
 
-    .line 377
+    .line 378
     invoke-virtual {v5, v1}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 379
+    .line 380
     :cond_4
     iget-object v0, p0, Lolive/app/OliveUi$Adaptive;->panes:Landroid/widget/LinearLayout;
 
@@ -341,16 +341,16 @@
     :cond_5
     move v0, v2
 
-    .line 359
+    .line 360
     goto :goto_1
 
-    .line 361
+    .line 362
     :cond_6
     const/high16 v1, 0x43b40000    # 360.0f
 
     goto :goto_2
 
-    .line 369
+    .line 370
     :cond_7
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
@@ -362,14 +362,14 @@
 
     invoke-virtual {v3, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 370
+    .line 371
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v0, v9, v2, v10}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
     invoke-virtual {v4, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 371
+    .line 372
     int-to-float v0, p1
 
     sub-float/2addr v0, v6
@@ -397,13 +397,13 @@
     .locals 3
 
     .prologue
-    .line 335
+    .line 336
     sub-int v0, p4, p2
 
-    .line 336
+    .line 337
     sub-int v1, p5, p3
 
-    .line 337
+    .line 338
     iget v2, p0, Lolive/app/OliveUi$Adaptive;->lastW:I
 
     if-ne v0, v2, :cond_0
@@ -412,11 +412,11 @@
 
     if-ne v1, v2, :cond_0
 
-    .line 345
+    .line 346
     :goto_0
     return-void
 
-    .line 340
+    .line 341
     :cond_0
     new-instance v2, Lolive/app/OliveUi$Adaptive$1;
 
