@@ -52,6 +52,9 @@ public class OliveMediaService extends Service {
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private MediaSession session;
     private MediaSession.Callback callback;
+    private boolean haveState;
+    private String pendingAction;
+    private String widgetArtUrl;
     private VolumeProvider volume;
     // What was last published to the session (also lets tests check it without a live system service).
     private MediaMetadata lastMetadata;
@@ -144,21 +147,32 @@ public class OliveMediaService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         startInForeground();
         String action = intent == null ? null : intent.getAction();
+        if (action != null && !haveState) {
+            // Started by a widget button: learn whether the Olive is playing before acting on play/pause.
+            pendingAction = action;
+            pollSoon(0);
+        } else {
+            perform(action);
+        }
+        // Not sticky: a restart from the background may not start a foreground service on newer Android.
+        return START_NOT_STICKY;
+    }
+
+    private void perform(String action) {
+        // Straight to the session's callback: the same handlers the lock screen and media buttons reach.
         if (ACTION_PREVIOUS.equals(action)) {
-            session.getController().getTransportControls().skipToPrevious();
+            callback.onSkipToPrevious();
         } else if (ACTION_NEXT.equals(action)) {
-            session.getController().getTransportControls().skipToNext();
+            callback.onSkipToNext();
         } else if (ACTION_TOGGLE.equals(action)) {
             if (isPlaying()) {
-                session.getController().getTransportControls().pause();
+                callback.onPause();
             } else {
-                session.getController().getTransportControls().play();
+                callback.onPlay();
             }
         } else {
             pollSoon(0);
         }
-        // Not sticky: a restart from the background may not start a foreground service on newer Android.
-        return START_NOT_STICKY;
     }
 
     @Override
@@ -267,7 +281,13 @@ public class OliveMediaService extends Service {
         } catch (NumberFormatException e) {
             volumePercent = -1;
         }
+        haveState = true;
         publish();
+        if (pendingAction != null) {
+            String action = pendingAction;
+            pendingAction = null;
+            perform(action);
+        }
     }
 
     private void scheduleNext(boolean reachable) {
@@ -312,6 +332,9 @@ public class OliveMediaService extends Service {
                 .build();
         session.setPlaybackState(lastState);
         updateVolumeProvider();
+        boolean artChanged = widgetArtUrl == null || !widgetArtUrl.equals(artUrl);
+        widgetArtUrl = artUrl;
+        OliveWidget.update(this, title, album.length() > 0 ? artist + " \u2022 " + album : artist, isPlaying(), art, artChanged);
         ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).notify(NOTIFICATION_ID, buildNotification());
     }
 

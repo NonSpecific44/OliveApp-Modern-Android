@@ -504,7 +504,7 @@ def mini_player(wrapper_ids=False):
     l2 = ' android:id="@id/LinearLayout02"' if wrapper_ids else ''
     img = ' android:id="@id/ImageView01"' if wrapper_ids else ''
     return f'''<LinearLayout android:orientation="horizontal" android:id="@id/playerbar" android:background="@drawable/m3_card" android:clickable="true" android:gravity="center_vertical" android:layout_marginLeft="12dip" android:layout_marginRight="12dip" android:layout_marginTop="4dip" android:layout_marginBottom="8dip" android:paddingLeft="8dip" android:layout_width="fill_parent" android:layout_height="64dip" android:elevation="1dip" android:stateListAnimator="@animator/m3_press">
-            <ImageView android:background="@drawable/m3_mini_art_bg" android:padding="12dip" android:layout_width="48dip" android:layout_height="48dip" android:src="@drawable/ic_m3_now_playing" />
+            <ImageView android:id="@+id/miniArt" android:background="@drawable/m3_mini_art_bg" android:clipToOutline="true" android:scaleType="fitCenter" android:padding="12dip" android:layout_width="48dip" android:layout_height="48dip" android:src="@drawable/ic_m3_now_playing" />
             <LinearLayout android:orientation="vertical"{l1} android:paddingLeft="12dip" android:layout_width="0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
                 <TextView style="@style/Text.TitleMedium" android:id="@id/playerTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:ellipsize="end" android:hint="Nothing playing" />
                 <TextView style="@style/Text.BodyMedium" android:id="@id/playerAlbum" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:ellipsize="end" />
@@ -852,6 +852,52 @@ for name, content in layouts.items():
     write(f'res/layout{"-" + qualifier if qualifier else ""}/{base}.xml', content)
 
 write('res/drawable/m3_pull_bg.xml', shape('@color/m3_surface_container_high', oval=True))
+
+# --- Home-screen widget (RemoteViews: only framework layouts and views) ---------------------------------
+write('res/drawable/w_bg.xml', shape('@color/m3_surface_container', 24))
+write('res/drawable/w_play.xml', badge('@color/m3_primary', 'g_play', 48, 48, 0, 12, 12, oval=True))
+write('res/drawable/w_pause.xml', badge('@color/m3_primary', 'g_pause', 48, 48, 0, 12, 12, oval=True))
+write('res/drawable/w_prev.xml', sym('skip_previous', '@color/m3_on_surface_variant', True))
+write('res/drawable/w_next.xml', sym('skip_next', '@color/m3_on_surface_variant', True))
+write('res/drawable/w_art_placeholder.xml', f'''{HDR}<layer-list {NS}>
+    <item><shape><solid android:color="@color/m3_surface_container_highest"/><corners android:radius="12dp"/><size android:width="96dp" android:height="96dp"/></shape></item>
+    <item><inset android:inset="26%" android:drawable="@drawable/g_album_placeholder"/></item>
+</layer-list>
+''')
+WIDGET_TEXT = '''<TextView android:id="@+id/widgetTitle" android:textSize="{title}sp" android:fontFamily="sans-serif-medium" android:textColor="@color/m3_on_surface" android:singleLine="true" android:ellipsize="end" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <TextView android:id="@+id/widgetArtist" android:textSize="{sub}sp" android:textColor="@color/m3_on_surface_variant" android:singleLine="true" android:ellipsize="end" android:layout_width="match_parent" android:layout_height="wrap_content" />'''
+WIDGET_BUTTONS = '''<ImageView android:id="@+id/widgetPrevious" android:src="@drawable/w_prev" android:background="@drawable/m3_btn_text" android:padding="{pad}dp" android:contentDescription="Previous" android:layout_width="{small}dp" android:layout_height="{small}dp" />
+        <ImageView android:id="@+id/widgetPlay" android:src="@drawable/w_play" android:contentDescription="Play" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:layout_width="{big}dp" android:layout_height="{big}dp" />
+        <ImageView android:id="@+id/widgetNext" android:src="@drawable/w_next" android:background="@drawable/m3_btn_text" android:padding="{pad}dp" android:contentDescription="Next" android:layout_width="{small}dp" android:layout_height="{small}dp" />'''
+write('res/layout/olive_widget.xml', f'''{HDR}<LinearLayout android:id="@android:id/background" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/w_bg" android:clipToOutline="true" android:padding="8dp" android:layout_width="match_parent" android:layout_height="match_parent" {NS}>
+    <LinearLayout android:id="@+id/widgetBody" android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView android:id="@+id/widgetArt" android:scaleType="centerCrop" android:src="@drawable/w_art_placeholder" android:contentDescription="Album art" android:layout_width="48dp" android:layout_height="48dp" />
+        <LinearLayout android:orientation="vertical" android:paddingLeft="12dp" android:paddingRight="4dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+            {WIDGET_TEXT.format(title=15, sub=13)}
+        </LinearLayout>
+    </LinearLayout>
+    {WIDGET_BUTTONS.format(small=40, big=48, pad=8)}
+</LinearLayout>
+''')
+write('res/layout/olive_widget_large.xml', f'''{HDR}<LinearLayout android:id="@android:id/background" android:orientation="vertical" android:gravity="center" android:background="@drawable/w_bg" android:clipToOutline="true" android:padding="16dp" android:layout_width="match_parent" android:layout_height="match_parent" {NS}>
+    <LinearLayout android:id="@+id/widgetBody" android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <ImageView android:id="@+id/widgetArt" android:scaleType="centerCrop" android:src="@drawable/w_art_placeholder" android:contentDescription="Album art" android:layout_width="88dp" android:layout_height="88dp" />
+        <LinearLayout android:orientation="vertical" android:paddingLeft="16dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+            {WIDGET_TEXT.format(title=18, sub=14)}
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:gravity="center" android:paddingTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        {WIDGET_BUTTONS.format(small=48, big=64, pad=10)}
+    </LinearLayout>
+</LinearLayout>
+''')
+write('res/xml/olive_widget_info.xml', f'''{HDR}<appwidget-provider {NS}
+    android:minWidth="250dp" android:minHeight="40dp" android:minResizeWidth="180dp" android:minResizeHeight="40dp"
+    android:targetCellWidth="4" android:targetCellHeight="1" android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen" android:updatePeriodMillis="0"
+    android:initialLayout="@layout/olive_widget" android:previewLayout="@layout/olive_widget"
+    android:previewImage="@drawable/icon" android:description="@string/widget_desc" />
+''')
 write('res/values/dimens_adaptive.xml', f'{HDR}<resources>\n    <dimen name="olive_list_gutter">0dp</dimen>\n</resources>\n')
 write('res/values-sw600dp/dimens_adaptive.xml', f'{HDR}<resources>\n    <dimen name="olive_list_gutter">24dp</dimen>\n</resources>\n')
 write('res/values/fractions_adaptive.xml', f'{HDR}<resources>\n    <fraction name="olive_dialog_major">80%</fraction>\n    <fraction name="olive_dialog_minor">90%</fraction>\n</resources>\n')
@@ -859,11 +905,12 @@ write('res/values-sw600dp/fractions_adaptive.xml', f'{HDR}<resources>\n    <frac
 
 # Tag keys used by the Compat helpers.
 p = pathlib.Path('res/values/ids.xml'); s = p.read_text()
-p.write_text(s.replace('</resources>', '    <item type="id" name="olive_play_icon" />\n    <item type="id" name="olive_list_watch" />\n    <item type="id" name="olive_pull" />\n    <item type="id" name="olive_adaptive" />\n</resources>'))
+p.write_text(s.replace('</resources>', '    <item type="id" name="olive_play_icon" />\n    <item type="id" name="olive_list_watch" />\n    <item type="id" name="olive_pull" />\n    <item type="id" name="olive_adaptive" />\n    <item type="id" name="olive_art_loading" />\n</resources>'))
 
 # --- Strings, manifest, sdk -------------------------------------------------------------------
 p = pathlib.Path('res/values/strings.xml'); s = p.read_text()
 s = s.replace('>Enter IP-address here<', '>e.g. 192.168.1.20 or 100.64.0.5<')
+s = s.replace('</resources>', '    <string name="widget_desc">What your Olive is playing, with play/pause and skip</string>\n</resources>')
 p.write_text(s)
 
 p = pathlib.Path('AndroidManifest.xml'); s = p.read_text()

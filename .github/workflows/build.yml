@@ -1,0 +1,108 @@
+# Builds the APK from the original app plus this repository's patches and runs the test suite on every pull
+# request and push to main. Checks that a committed release APK matches its source, and uploads the unsigned
+# APK, screenshots and test reports. On main, it also signs the build when the release key is configured as
+# repository secrets (see README, "Signing in CI").
+name: Build and test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      APKTOOL: ${{ github.workspace }}/.tools/apktool.jar
+      UBER_SIGNER: ${{ github.workspace }}/.tools/uber-apk-signer.jar
+      D2J: ${{ github.workspace }}/.tools/dex-tools-v2.4/d2j-dex2jar.sh
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: test-harness/pom.xml
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Download build tools (checksums pinned)
+        run: |
+          mkdir -p .tools
+          cd .tools
+          curl -fsSL -o apktool.jar https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar
+          curl -fsSL -o uber-apk-signer.jar https://github.com/patrickfav/uber-apk-signer/releases/download/v1.3.0/uber-apk-signer-1.3.0.jar
+          curl -fsSL -o dex-tools.zip https://github.com/pxb1988/dex2jar/releases/download/v2.4/dex-tools-v2.4.zip
+          printf '%s  %s\n' \
+            c0350abbab5314248dfe2ee0c907def4edd14f6faef1f5d372d3d4abd28f0431 apktool.jar \
+            e1299fd6fcf4da527dd53735b56127e8ea922a321128123b9c32d619bba1d835 uber-apk-signer.jar \
+            ee7c45eb3c1d2474a6145d8d447e651a736a22d9664b6d3d3be5a5a817dda23a dex-tools.zip | sha256sum -c -
+          unzip -q dex-tools.zip
+          chmod +x dex-tools-v2.4/*.sh
+
+      - name: Build
+        run: ./build.sh out
+
+      - name: Check the committed release matches this source
+        run: python3 -I ci/check_release.py out
+
+      - name: Test
+        run: test-harness/run-tests.sh out light
+
+      - name: Upload unsigned APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: olive-unsigned-apk
+          path: out/olive-unsigned.apk
+
+      - name: Upload screenshots and test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-and-test-reports
+          path: |
+            out/screenshots-light
+            test-harness/target/surefire-reports
+          if-no-files-found: ignore
+
+      - name: Sign (main only, when the release key is configured)
+        id: sign
+        if: github.event_name != 'pull_request'
+        env:
+          OLIVE_KEYSTORE_BASE64: ${{ secrets.OLIVE_KEYSTORE_BASE64 }}
+          OLIVE_KEYSTORE_PASS: ${{ secrets.OLIVE_KEYSTORE_PASS }}
+        run: |
+          if [ -z "$OLIVE_KEYSTORE_BASE64" ] || [ -z "$OLIVE_KEYSTORE_PASS" ]; then
+            echo "Release key not configured as repository secrets; skipping signing."
+            exit 0
+          fi
+          umask 077
+          printf '%s' "$OLIVE_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.p12"
+          java -jar "$UBER_SIGNER" -a out/olive-unsigned.apk -o out/signed \
+            --ks "$RUNNER_TEMP/release.p12" --ksAlias olive \
+            --ksPass "$OLIVE_KEYSTORE_PASS" --ksKeyPass "$OLIVE_KEYSTORE_PASS"
+          rm -f "$RUNNER_TEMP/release.p12"
+          echo "signed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Upload signed APK
+        if: steps.sign.outputs.signed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: olive-signed-apk
+          path: out/signed/*.apk

@@ -104,12 +104,18 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
 {acts}
         <service android:name=".OliveMediaService" android:exported="false" android:foregroundServiceType="mediaPlayback"/>
         <receiver android:name=".OliveUpdateReceiver" android:exported="false"/>
+        <receiver android:name=".OliveWidget" android:exported="false" android:label="Olive now playing">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/olive_widget_info"/>
+        </receiver>
     </application>
 </manifest>
 ''')
 
 p = pathlib.Path('apktool.yml'); s = p.read_text()
 s = s.replace("  minSdkVersion: 6\n", "  minSdkVersion: 21\n  targetSdkVersion: 34\n")
-s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 9\n  versionName: 1.0.0\n")
+s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 10\n  versionName: 1.1.0\n")
 p.write_text(s)
 print("resources patched")

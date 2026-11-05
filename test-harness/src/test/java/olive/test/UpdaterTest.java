@@ -145,17 +145,17 @@ public class UpdaterTest {
         assertNotNull("update dialog shown", d);
         assertEquals("Update available: 9.9.9", org.robolectric.Shadows.shadowOf(d).getTitle().toString());
         String message = org.robolectric.Shadows.shadowOf(d).getMessage().toString();
-        assertTrue(message.startsWith("You have 1.0.0."));
+        assertTrue(message.startsWith("You have " + installed() + "."));
         assertTrue("notes shown without markdown", message.contains("Fixed") && message.contains("- Things work") && !message.contains("**"));
     }
 
     @Test
     public void reportsUpToDateWhenLatestIsTheInstalledVersion() throws Exception {
-        files.put("/releases/latest", releaseJson("v1.0.0", false).getBytes("UTF-8"));
+        files.put("/releases/latest", releaseJson("v" + installed(), false).getBytes("UTF-8"));
         Activity a = Robolectric.buildActivity(Activity.class).setup().get();
         call("check", new Class<?>[] {Activity.class, boolean.class}, a, true);
         settle();
-        assertEquals("You have the latest version (1.0.0).", ShadowToast.getTextOfLatestToast());
+        assertEquals("You have the latest version (" + installed() + ").", ShadowToast.getTextOfLatestToast());
     }
 
     @Test
@@ -216,8 +216,12 @@ public class UpdaterTest {
         Activity settings = Robolectric.buildActivity(Class.forName("olive.app.SettingsTab").asSubclass(Activity.class)).setup().get();
         call("attachSettings", new Class<?>[] {Activity.class}, settings);
         int id = c(settings).getResources().getIdentifier("updateVersion", "id", "olive.app");
-        assertEquals("Version 1.0.0 • Tap to check for updates", ((TextView) settings.findViewById(id)).getText().toString());
+        assertEquals("Version " + installed() + " \u2022 Tap to check for updates", ((TextView) settings.findViewById(id)).getText().toString());
         assertNotEquals(0, c(settings).getResources().getIdentifier("updateRow", "id", "olive.app"));
+    }
+
+    static String installed() throws Exception {
+        return (String) call("installedVersion", new Class<?>[] {Context.class}, RuntimeEnvironment.getApplication());
     }
 
     static Context c(Activity a) {

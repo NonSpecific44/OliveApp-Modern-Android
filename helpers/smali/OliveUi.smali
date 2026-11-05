@@ -39,6 +39,9 @@
     invoke-static {p0}, Lolive/app/OliveUpdater;->attachSettings(Landroid/app/Activity;)V
 
     .line 63
+    invoke-static {p0}, Lolive/app/OliveArt;->attach(Landroid/app/Activity;)V
+
+    .line 64
     return-void
 .end method
 
@@ -162,7 +165,7 @@
     .locals 2
 
     .prologue
-    .line 74
+    .line 75
     instance-of v0, p0, Landroid/app/Activity;
 
     if-eqz v0, :cond_0
@@ -177,20 +180,20 @@
 
     move-object v1, v0
 
-    .line 75
+    .line 76
     :goto_0
     if-nez v1, :cond_1
 
-    .line 76
+    .line 77
     invoke-static {p0, p1, p2, p3, p4}, Landroid/app/ProgressDialog;->show(Landroid/content/Context;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZZ)Landroid/app/ProgressDialog;
 
     move-result-object v0
 
-    .line 79
+    .line 80
     :goto_1
     return-object v0
 
-    .line 74
+    .line 75
     :cond_0
     const/4 v0, 0x0
 
@@ -198,11 +201,11 @@
 
     goto :goto_0
 
-    .line 78
+    .line 79
     :cond_1
     invoke-virtual {v1}, Lolive/app/OliveUi$Pull;->startLoading()V
 
-    .line 79
+    .line 80
     new-instance v0, Lolive/app/OliveUi$InlineProgress;
 
     invoke-direct {v0, p0, v1}, Lolive/app/OliveUi$InlineProgress;-><init>(Landroid/content/Context;Lolive/app/OliveUi$Pull;)V

@@ -33,7 +33,7 @@
     .end annotation
 
     .prologue
-    .line 227
+    .line 241
     iput-object p1, p0, Lolive/app/OliveMediaService$5;->this$0:Lolive/app/OliveMediaService;
 
     iput-object p2, p0, Lolive/app/OliveMediaService$5;->val$ip:Ljava/lang/String;
@@ -51,7 +51,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 229
+    .line 243
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -84,10 +84,10 @@
 
     move-result-object v3
 
-    .line 232
+    .line 246
     if-eqz v3, :cond_1
 
-    .line 233
+    .line 247
     const-string v0, "albumart"
 
     invoke-static {v3, v0}, Lolive/app/OliveMediaService;->tag(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
@@ -102,7 +102,7 @@
 
     move-result-object v0
 
-    .line 234
+    .line 248
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
     move-result v2
@@ -121,14 +121,14 @@
 
     if-nez v2, :cond_0
 
-    .line 235
+    .line 249
     invoke-static {v0}, Lolive/app/OliveMediaService;->access$800(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
     move-result-object v1
 
     move-object v2, v1
 
-    .line 240
+    .line 254
     :goto_0
     iget-object v1, p0, Lolive/app/OliveMediaService$5;->this$0:Lolive/app/OliveMediaService;
 
@@ -142,7 +142,7 @@
 
     invoke-virtual {v1, v4}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 248
+    .line 262
     return-void
 
     :cond_0

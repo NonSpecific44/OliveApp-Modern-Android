@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 75
+    .line 78
     iput-object p1, p0, Lolive/app/OliveMediaService$1;->this$0:Lolive/app/OliveMediaService;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 77
+    .line 80
     iget-object v0, p0, Lolive/app/OliveMediaService$1;->this$0:Lolive/app/OliveMediaService;
 
     invoke-static {v0}, Lolive/app/OliveMediaService;->access$000(Lolive/app/OliveMediaService;)V
 
-    .line 78
+    .line 81
     return-void
 .end method

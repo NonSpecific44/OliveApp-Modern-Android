@@ -1,5 +1,7 @@
 # OliveApp-Modern-Android
 
+[![Build and test](https://github.com/NonSpecific44/OliveApp-Modern-Android/actions/workflows/build.yml/badge.svg)](https://github.com/NonSpecific44/OliveApp-Modern-Android/actions/workflows/build.yml)
+
 The official remote-control app for **Olive** network music players (Olive 4HD, O2M, Melody and others),
 rescued from 2011 and rebuilt to install and run on modern Android, with a Material 3 / Android 16 look.
 
@@ -34,6 +36,12 @@ Requires Android 6.0 or newer; designed for Android 14-16.
   where an Olive was found, and the network of any address you've connected to, are scanned automatically next time.
 - **Anywhere else** (mobile data with Tailscale or another VPN): type the player's address into the connect box,
   e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet.
+
+## Home-screen widget
+
+Long-press your home screen, choose **Widgets → Olive** and place it: the current track with its artwork, plus
+previous, play/pause and next. It's 4×1 by default; resize it taller for a larger layout. Tapping the artwork or
+title opens the player. The now-playing bar inside the app shows the album art too.
 
 ## Lock-screen controls
 
@@ -115,6 +123,21 @@ The release key is never committed (see `.gitignore`); without `OLIVE_KEYSTORE` 
    `v<x.y.z>` with the APK and checksum, and installed apps offer it as an update.
 
 `releases/1.0-modern.*` are the builds from before the 1.0.0 numbering, kept for reference.
+
+### Continuous integration
+
+[Build and test](.github/workflows/build.yml) runs on every pull request and push to `main`: it builds the APK from
+the original plus the patches (the build tools' checksums are pinned), checks that a committed
+`releases/<version>/` APK matches that build byte for byte apart from its signature
+([`ci/check_release.py`](ci/check_release.py)), runs the test suite, and uploads the unsigned APK, screenshots and
+test reports as artifacts.
+
+**Signing in CI (optional).** To have pushes to `main` also produce a signed APK artifact, add two repository secrets
+under *Settings → Secrets and variables → Actions*:
+- `OLIVE_KEYSTORE_BASE64`: the release keystore, base64-encoded (`base64 -w0 olive-release-2026.p12`)
+- `OLIVE_KEYSTORE_PASS`: its password
+
+Secrets aren't available to pull requests, and the workflow deletes the decoded keystore after signing.
 
 ### Testing
 

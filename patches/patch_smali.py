@@ -165,6 +165,15 @@ with open(root / "LoadTabs.smali", "a") as f:
 .end method
 """)
 
+# 12. Now-playing bar artwork: pass each metadata update (main tabs, album/track list) to OliveArt.
+for name in ("LoadTabs.smali", "TrackListTab.smali"):
+    f = root / name
+    t = f.read_text()
+    t, k = re.subn(r"(\.method public updateMetadata\(Lolive/app/Metadata;\)V\n(?:    \.[^\n]*\n|\n)*?    \.prologue\n)",
+                   r"\1    invoke-static {p0, p1}, Lolive/app/OliveArt;->onMetadata(Landroid/app/Activity;Ljava/lang/Object;)V\n\n", t)
+    assert k == 1, (name, k)
+    f.write_text(t)
+
 # 5. Add compiled helper classes.
 for f in helpers.glob("*.smali"):
     shutil.copy(f, root / f.name)
