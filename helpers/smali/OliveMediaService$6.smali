@@ -23,7 +23,7 @@
     .locals 0
 
     .prologue
-    .line 324
+    .line 347
     iput-object p1, p0, Lolive/app/OliveMediaService$6;->this$0:Lolive/app/OliveMediaService;
 
     invoke-direct {p0, p2, p3, p4}, Landroid/media/VolumeProvider;-><init>(III)V
@@ -37,7 +37,7 @@
     .locals 3
 
     .prologue
-    .line 330
+    .line 353
     iget-object v0, p0, Lolive/app/OliveMediaService$6;->this$0:Lolive/app/OliveMediaService;
 
     invoke-virtual {p0}, Lolive/app/OliveMediaService$6;->getCurrentVolume()I
@@ -50,7 +50,7 @@
 
     invoke-static {v0, v1}, Lolive/app/OliveMediaService;->access$1200(Lolive/app/OliveMediaService;I)V
 
-    .line 331
+    .line 354
     return-void
 .end method
 
@@ -58,11 +58,11 @@
     .locals 1
 
     .prologue
-    .line 326
+    .line 349
     iget-object v0, p0, Lolive/app/OliveMediaService$6;->this$0:Lolive/app/OliveMediaService;
 
     invoke-static {v0, p1}, Lolive/app/OliveMediaService;->access$1200(Lolive/app/OliveMediaService;I)V
 
-    .line 327
+    .line 350
     return-void
 .end method

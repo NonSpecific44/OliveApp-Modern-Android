@@ -60,6 +60,7 @@ public final class OliveUi {
         Pull.attach(activity);
         Adaptive.attach(activity);
         OliveUpdater.attachSettings(activity);
+        OliveArt.attach(activity);
     }
 
     // --- Progress -----------------------------------------------------------------------------------

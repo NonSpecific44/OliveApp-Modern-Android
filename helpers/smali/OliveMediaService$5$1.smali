@@ -37,7 +37,7 @@
     .end annotation
 
     .prologue
-    .line 240
+    .line 254
     iput-object p1, p0, Lolive/app/OliveMediaService$5$1;->this$1:Lolive/app/OliveMediaService$5;
 
     iput-object p2, p0, Lolive/app/OliveMediaService$5$1;->val$xml:Ljava/lang/String;
@@ -57,12 +57,12 @@
     .locals 4
 
     .prologue
-    .line 242
+    .line 256
     iget-object v0, p0, Lolive/app/OliveMediaService$5$1;->val$xml:Ljava/lang/String;
 
     if-eqz v0, :cond_0
 
-    .line 243
+    .line 257
     iget-object v0, p0, Lolive/app/OliveMediaService$5$1;->this$1:Lolive/app/OliveMediaService$5;
 
     iget-object v0, v0, Lolive/app/OliveMediaService$5;->this$0:Lolive/app/OliveMediaService;
@@ -75,7 +75,7 @@
 
     invoke-static {v0, v1, v2, v3}, Lolive/app/OliveMediaService;->access$900(Lolive/app/OliveMediaService;Ljava/lang/String;Ljava/lang/String;Landroid/graphics/Bitmap;)V
 
-    .line 245
+    .line 259
     :cond_0
     iget-object v0, p0, Lolive/app/OliveMediaService$5$1;->this$1:Lolive/app/OliveMediaService$5;
 
@@ -90,10 +90,10 @@
     :goto_0
     invoke-static {v1, v0}, Lolive/app/OliveMediaService;->access$1000(Lolive/app/OliveMediaService;Z)V
 
-    .line 246
+    .line 260
     return-void
 
-    .line 245
+    .line 259
     :cond_1
     const/4 v0, 0x0
 
