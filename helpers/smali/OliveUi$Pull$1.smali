@@ -26,7 +26,7 @@
     .locals 0
 
     .prologue
-    .line 133
+    .line 134
     iput-object p1, p0, Lolive/app/OliveUi$Pull$1;->this$0:Lolive/app/OliveUi$Pull;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -40,11 +40,11 @@
     .locals 1
 
     .prologue
-    .line 135
+    .line 136
     iget-object v0, p0, Lolive/app/OliveUi$Pull$1;->this$0:Lolive/app/OliveUi$Pull;
 
     invoke-virtual {v0}, Lolive/app/OliveUi$Pull;->finishLoading()V
 
-    .line 136
+    .line 137
     return-void
 .end method

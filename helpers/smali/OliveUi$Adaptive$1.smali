@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 340
+    .line 341
     iput-object p1, p0, Lolive/app/OliveUi$Adaptive$1;->this$0:Lolive/app/OliveUi$Adaptive;
 
     iput p2, p0, Lolive/app/OliveUi$Adaptive$1;->val$w:I
@@ -53,7 +53,7 @@
     .locals 3
 
     .prologue
-    .line 342
+    .line 343
     iget-object v0, p0, Lolive/app/OliveUi$Adaptive$1;->this$0:Lolive/app/OliveUi$Adaptive;
 
     iget v1, p0, Lolive/app/OliveUi$Adaptive$1;->val$w:I
@@ -62,6 +62,6 @@
 
     invoke-virtual {v0, v1, v2}, Lolive/app/OliveUi$Adaptive;->apply(II)V
 
-    .line 343
+    .line 344
     return-void
 .end method

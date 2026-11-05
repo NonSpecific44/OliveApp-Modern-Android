@@ -1,0 +1,40 @@
+# Publishes a GitHub release for each releases/<x.y.z>/ folder that doesn't have one yet.
+# The in-app updater installs the newest of these releases. Folders named otherwise (the 1.0-modern.N builds
+# from before 1.0.0) are left as they are.
+name: Publish release
+
+on:
+  push:
+    branches: [main]
+    paths: ['releases/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish new versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          for dir in releases/*/; do
+            version=$(basename "$dir")
+            echo "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || continue
+            if gh release view "v$version" >/dev/null 2>&1; then
+              echo "v$version is already published"
+              continue
+            fi
+            apk="$dir/OliveApp-modern-$version.apk"
+            (cd "$dir" && sha256sum -c "OliveApp-modern-$version.apk.sha256")
+            gh release create "v$version" "$apk" "$apk.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "OliveApp-modern $version" \
+              --notes-file "$dir/RELEASE_NOTES.md" \
+              --latest
+          done
