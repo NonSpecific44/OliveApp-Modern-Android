@@ -302,7 +302,7 @@ public final class Compat {
      * (a differently shaped container) pops in with an expressive squish-and-overshoot.
      */
     public static void setPlayIcon(final ImageButton button, final int resId) {
-        Drawable drawable = button.getResources().getDrawable(resId);
+        Drawable drawable = button.getContext().getDrawable(resId);
         swapPlayIcon(button, drawable, playIconKey(drawable));
     }
 

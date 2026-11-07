@@ -528,7 +528,7 @@
 
     move-result-object v1
 
-    const-string v3, "ic_m3_now_playing"
+    const-string v3, "ic_notif"
 
     const-string v4, "drawable"
 

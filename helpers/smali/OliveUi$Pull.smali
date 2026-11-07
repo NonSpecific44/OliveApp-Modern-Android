@@ -54,10 +54,10 @@
     .locals 2
 
     .prologue
-    .line 141
+    .line 142
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 129
+    .line 130
     new-instance v0, Landroid/os/Handler;
 
     invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
@@ -68,23 +68,23 @@
 
     iput-object v0, p0, Lolive/app/OliveUi$Pull;->main:Landroid/os/Handler;
 
-    .line 135
+    .line 136
     new-instance v0, Lolive/app/OliveUi$Pull$1;
 
     invoke-direct {v0, p0}, Lolive/app/OliveUi$Pull$1;-><init>(Lolive/app/OliveUi$Pull;)V
 
     iput-object v0, p0, Lolive/app/OliveUi$Pull;->timeout:Ljava/lang/Runnable;
 
-    .line 142
+    .line 143
     iput-object p1, p0, Lolive/app/OliveUi$Pull;->activity:Landroid/app/Activity;
 
-    .line 143
+    .line 144
     iput-object p2, p0, Lolive/app/OliveUi$Pull;->list:Landroid/widget/ListView;
 
-    .line 144
+    .line 145
     iput-object p3, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
-    .line 145
+    .line 146
     const-string v0, "pullArrow"
 
     invoke-static {p1, v0}, Lolive/app/OliveUi;->id(Landroid/content/Context;Ljava/lang/String;)I
@@ -97,7 +97,7 @@
 
     iput-object v0, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
-    .line 146
+    .line 147
     const-string v0, "pullSpinner"
 
     invoke-static {p1, v0}, Lolive/app/OliveUi;->id(Landroid/content/Context;Ljava/lang/String;)I
@@ -110,7 +110,7 @@
 
     iput-object v0, p0, Lolive/app/OliveUi$Pull;->spinner:Landroid/view/View;
 
-    .line 147
+    .line 148
     const-string v0, "refresh"
 
     invoke-direct {p0, v0}, Lolive/app/OliveUi$Pull;->menuItem(Ljava/lang/String;)Landroid/view/MenuItem;
@@ -124,7 +124,7 @@
     :goto_0
     iput-boolean v0, p0, Lolive/app/OliveUi$Pull;->canRefresh:Z
 
-    .line 148
+    .line 149
     const/high16 v0, 0x42900000    # 72.0f
 
     invoke-static {p1, v0}, Lolive/app/OliveUi;->dp(Landroid/content/Context;F)F
@@ -135,7 +135,7 @@
 
     iput v0, p0, Lolive/app/OliveUi$Pull;->hiddenY:F
 
-    .line 149
+    .line 150
     const/high16 v0, 0x42a00000    # 80.0f
 
     invoke-static {p1, v0}, Lolive/app/OliveUi;->dp(Landroid/content/Context;F)F
@@ -144,7 +144,7 @@
 
     iput v0, p0, Lolive/app/OliveUi$Pull;->threshold:F
 
-    .line 150
+    .line 151
     invoke-static {p1}, Landroid/view/ViewConfiguration;->get(Landroid/content/Context;)Landroid/view/ViewConfiguration;
 
     move-result-object v0
@@ -155,29 +155,29 @@
 
     iput v0, p0, Lolive/app/OliveUi$Pull;->slop:I
 
-    .line 151
+    .line 152
     iget v0, p0, Lolive/app/OliveUi$Pull;->hiddenY:F
 
     invoke-virtual {p3, v0}, Landroid/view/View;->setTranslationY(F)V
 
-    .line 152
+    .line 153
     const/4 v0, 0x0
 
     invoke-virtual {p3, v0}, Landroid/view/View;->setAlpha(F)V
 
-    .line 153
+    .line 154
     iget-boolean v0, p0, Lolive/app/OliveUi$Pull;->canRefresh:Z
 
     if-eqz v0, :cond_0
 
-    .line 154
+    .line 155
     invoke-virtual {p2, p0}, Landroid/widget/ListView;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 156
+    .line 157
     :cond_0
     return-void
 
-    .line 147
+    .line 148
     :cond_1
     const/4 v0, 0x0
 
@@ -192,7 +192,7 @@
 
     const/4 v1, 0x0
 
-    .line 195
+    .line 196
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->list:Landroid/widget/ListView;
 
     invoke-virtual {v2}, Landroid/widget/ListView;->getChildCount()I
@@ -201,7 +201,7 @@
 
     if-nez v2, :cond_1
 
-    .line 198
+    .line 199
     :cond_0
     :goto_0
     return v0
@@ -245,7 +245,7 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 160
+    .line 161
     const-string v0, "pullIndicator"
 
     invoke-static {p0, v0}, Lolive/app/OliveUi;->id(Landroid/content/Context;Ljava/lang/String;)I
@@ -256,15 +256,15 @@
 
     move-result-object v4
 
-    .line 161
+    .line 162
     if-nez v4, :cond_1
 
-    .line 181
+    .line 182
     :cond_0
     :goto_0
     return-object v3
 
-    .line 164
+    .line 165
     :cond_1
     const-string v0, "olive_pull"
 
@@ -272,24 +272,24 @@
 
     move-result v5
 
-    .line 165
+    .line 166
     invoke-virtual {v4, v5}, Landroid/view/View;->getTag(I)Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 166
+    .line 167
     instance-of v1, v0, Lolive/app/OliveUi$Pull;
 
     if-eqz v1, :cond_2
 
-    .line 167
+    .line 168
     check-cast v0, Lolive/app/OliveUi$Pull;
 
     move-object v3, v0
 
     goto :goto_0
 
-    .line 169
+    .line 170
     :cond_2
     invoke-virtual {v4}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -297,7 +297,7 @@
 
     check-cast v0, Landroid/view/ViewGroup;
 
-    .line 171
+    .line 172
     const/4 v2, 0x0
 
     move-object v1, v3
@@ -311,7 +311,7 @@
 
     if-nez v1, :cond_4
 
-    .line 172
+    .line 173
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v6
@@ -320,29 +320,29 @@
 
     if-eqz v6, :cond_3
 
-    .line 173
+    .line 174
     invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
     check-cast v1, Landroid/widget/ListView;
 
-    .line 171
+    .line 172
     :cond_3
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_1
 
-    .line 176
+    .line 177
     :cond_4
     if-eqz v1, :cond_0
 
-    .line 179
+    .line 180
     new-instance v3, Lolive/app/OliveUi$Pull;
 
     invoke-direct {v3, p0, v1, v4}, Lolive/app/OliveUi$Pull;-><init>(Landroid/app/Activity;Landroid/widget/ListView;Landroid/view/View;)V
 
-    .line 180
+    .line 181
     invoke-virtual {v4, v5, v3}, Landroid/view/View;->setTag(ILjava/lang/Object;)V
 
     goto :goto_0
@@ -354,14 +354,14 @@
     .prologue
     const/high16 v0, 0x3f800000    # 1.0f
 
-    .line 249
+    .line 250
     const/high16 v1, 0x3f000000    # 0.5f
 
     mul-float/2addr v1, p1
 
     iput v1, p0, Lolive/app/OliveUi$Pull;->distance:F
 
-    .line 250
+    .line 251
     iget v1, p0, Lolive/app/OliveUi$Pull;->distance:F
 
     iget v2, p0, Lolive/app/OliveUi$Pull;->threshold:F
@@ -372,7 +372,7 @@
 
     move-result v1
 
-    .line 251
+    .line 252
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     iget v3, p0, Lolive/app/OliveUi$Pull;->hiddenY:F
@@ -403,7 +403,7 @@
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setTranslationY(F)V
 
-    .line 252
+    .line 253
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     const/high16 v3, 0x3fc00000    # 1.5f
@@ -416,7 +416,7 @@
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setAlpha(F)V
 
-    .line 253
+    .line 254
     const v2, 0x3f19999a    # 0.6f
 
     const v3, 0x3ecccccd    # 0.4f
@@ -425,29 +425,29 @@
 
     add-float/2addr v2, v3
 
-    .line 254
+    .line 255
     iget-object v3, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     invoke-virtual {v3, v2}, Landroid/view/View;->setScaleX(F)V
 
-    .line 255
+    .line 256
     iget-object v3, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     invoke-virtual {v3, v2}, Landroid/view/View;->setScaleY(F)V
 
-    .line 256
+    .line 257
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     if-eqz v2, :cond_0
 
-    .line 257
+    .line 258
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     const/4 v3, 0x0
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setVisibility(I)V
 
-    .line 258
+    .line 259
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     const/high16 v3, 0x43870000    # 270.0f
@@ -456,7 +456,7 @@
 
     invoke-virtual {v2, v3}, Landroid/view/View;->setRotation(F)V
 
-    .line 259
+    .line 260
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     cmpl-float v1, v1, v0
@@ -466,24 +466,24 @@
     :goto_0
     invoke-virtual {v2, v0}, Landroid/view/View;->setAlpha(F)V
 
-    .line 261
+    .line 262
     :cond_0
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->spinner:Landroid/view/View;
 
     if-eqz v0, :cond_1
 
-    .line 262
+    .line 263
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->spinner:Landroid/view/View;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 264
+    .line 265
     :cond_1
     return-void
 
-    .line 259
+    .line 260
     :cond_2
     const v0, 0x3f0ccccd    # 0.55f
 
@@ -494,7 +494,7 @@
     .locals 3
 
     .prologue
-    .line 186
+    .line 187
     :try_start_0
     new-instance v0, Landroid/widget/PopupMenu;
 
@@ -508,12 +508,12 @@
 
     move-result-object v0
 
-    .line 187
+    .line 188
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->activity:Landroid/app/Activity;
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->onCreateOptionsMenu(Landroid/view/Menu;)Z
 
-    .line 188
+    .line 189
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->activity:Landroid/app/Activity;
 
     invoke-static {v1, p1}, Lolive/app/OliveUi;->id(Landroid/content/Context;Ljava/lang/String;)I
@@ -526,15 +526,15 @@
 
     move-result-object v0
 
-    .line 190
+    .line 191
     :goto_0
     return-object v0
 
-    .line 189
+    .line 190
     :catch_0
     move-exception v0
 
-    .line 190
+    .line 191
     const/4 v0, 0x0
 
     goto :goto_0
@@ -544,25 +544,25 @@
     .locals 2
 
     .prologue
-    .line 267
+    .line 268
     invoke-virtual {p0}, Lolive/app/OliveUi$Pull;->startLoading()V
 
-    .line 268
+    .line 269
     const-string v0, "refresh"
 
     invoke-direct {p0, v0}, Lolive/app/OliveUi$Pull;->menuItem(Ljava/lang/String;)Landroid/view/MenuItem;
 
     move-result-object v0
 
-    .line 269
+    .line 270
     if-eqz v0, :cond_0
 
-    .line 270
+    .line 271
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->activity:Landroid/app/Activity;
 
     invoke-virtual {v1, v0}, Landroid/app/Activity;->onOptionsItemSelected(Landroid/view/MenuItem;)Z
 
-    .line 272
+    .line 273
     :cond_0
     return-void
 .end method
@@ -575,10 +575,10 @@
 
     const/4 v2, 0x0
 
-    .line 295
+    .line 296
     iput v2, p0, Lolive/app/OliveUi$Pull;->distance:F
 
-    .line 296
+    .line 297
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
@@ -605,7 +605,7 @@
 
     const-wide/16 v2, 0xfa
 
-    .line 297
+    .line 298
     invoke-virtual {v0, v2, v3}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
@@ -618,7 +618,7 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 298
+    .line 299
     return-void
 .end method
 
@@ -628,22 +628,22 @@
     .locals 2
 
     .prologue
-    .line 289
+    .line 290
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lolive/app/OliveUi$Pull;->loading:Z
 
-    .line 290
+    .line 291
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->main:Landroid/os/Handler;
 
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->timeout:Ljava/lang/Runnable;
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 291
+    .line 292
     invoke-direct {p0}, Lolive/app/OliveUi$Pull;->retract()V
 
-    .line 292
+    .line 293
     return-void
 .end method
 
@@ -657,21 +657,21 @@
 
     const/4 v0, 0x0
 
-    .line 202
+    .line 203
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getActionMasked()I
 
     move-result v2
 
     packed-switch v2, :pswitch_data_0
 
-    .line 243
+    .line 244
     iget-boolean v0, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
     :cond_0
     :goto_0
     return v0
 
-    .line 204
+    .line 205
     :pswitch_0
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
 
@@ -679,18 +679,18 @@
 
     iput v1, p0, Lolive/app/OliveUi$Pull;->startY:F
 
-    .line 205
+    .line 206
     iput-boolean v0, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
     goto :goto_0
 
-    .line 208
+    .line 209
     :pswitch_1
     iget-boolean v2, p0, Lolive/app/OliveUi$Pull;->loading:Z
 
     if-nez v2, :cond_0
 
-    .line 211
+    .line 212
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
 
     move-result v2
@@ -699,12 +699,12 @@
 
     sub-float/2addr v2, v3
 
-    .line 212
+    .line 213
     iget-boolean v3, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
     if-nez v3, :cond_1
 
-    .line 213
+    .line 214
     iget v3, p0, Lolive/app/OliveUi$Pull;->slop:I
 
     int-to-float v3, v3
@@ -719,35 +719,35 @@
 
     if-eqz v3, :cond_2
 
-    .line 214
+    .line 215
     iput-boolean v1, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
-    .line 215
+    .line 216
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
 
     move-result v0
 
     iput v0, p0, Lolive/app/OliveUi$Pull;->startY:F
 
-    .line 216
+    .line 217
     invoke-static {p2}, Landroid/view/MotionEvent;->obtain(Landroid/view/MotionEvent;)Landroid/view/MotionEvent;
 
     move-result-object v0
 
-    .line 217
+    .line 218
     const/4 v2, 0x3
 
     invoke-virtual {v0, v2}, Landroid/view/MotionEvent;->setAction(I)V
 
-    .line 218
+    .line 219
     iget-object v2, p0, Lolive/app/OliveUi$Pull;->list:Landroid/widget/ListView;
 
     invoke-virtual {v2, v0}, Landroid/widget/ListView;->onTouchEvent(Landroid/view/MotionEvent;)Z
 
-    .line 219
+    .line 220
     invoke-virtual {v0}, Landroid/view/MotionEvent;->recycle()V
 
-    .line 220
+    .line 221
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
@@ -756,7 +756,7 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->cancel()V
 
-    .line 228
+    .line 229
     :cond_1
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
 
@@ -774,16 +774,16 @@
 
     move v0, v1
 
-    .line 229
+    .line 230
     goto :goto_0
 
-    .line 222
+    .line 223
     :cond_2
     cmpg-float v1, v2, v4
 
     if-gez v1, :cond_0
 
-    .line 223
+    .line 224
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
 
     move-result v1
@@ -792,16 +792,16 @@
 
     goto :goto_0
 
-    .line 232
+    .line 233
     :pswitch_2
     iget-boolean v2, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
     if-eqz v2, :cond_0
 
-    .line 235
+    .line 236
     iput-boolean v0, p0, Lolive/app/OliveUi$Pull;->pulling:Z
 
-    .line 236
+    .line 237
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getActionMasked()I
 
     move-result v0
@@ -816,22 +816,22 @@
 
     if-ltz v0, :cond_3
 
-    .line 237
+    .line 238
     invoke-direct {p0}, Lolive/app/OliveUi$Pull;->refresh()V
 
     :goto_1
     move v0, v1
 
-    .line 241
+    .line 242
     goto :goto_0
 
-    .line 239
+    .line 240
     :cond_3
     invoke-direct {p0}, Lolive/app/OliveUi$Pull;->retract()V
 
     goto :goto_1
 
-    .line 202
+    .line 203
     nop
 
     :pswitch_data_0
@@ -849,19 +849,19 @@
     .prologue
     const/high16 v4, 0x3f800000    # 1.0f
 
-    .line 275
+    .line 276
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lolive/app/OliveUi$Pull;->loading:Z
 
-    .line 276
+    .line 277
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->main:Landroid/os/Handler;
 
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->timeout:Ljava/lang/Runnable;
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 277
+    .line 278
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->main:Landroid/os/Handler;
 
     iget-object v1, p0, Lolive/app/OliveUi$Pull;->timeout:Ljava/lang/Runnable;
@@ -870,32 +870,32 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 278
+    .line 279
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     if-eqz v0, :cond_0
 
-    .line 279
+    .line 280
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->arrow:Landroid/view/View;
 
     const/16 v1, 0x8
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 281
+    .line 282
     :cond_0
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->spinner:Landroid/view/View;
 
     if-eqz v0, :cond_1
 
-    .line 282
+    .line 283
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->spinner:Landroid/view/View;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 284
+    .line 285
     :cond_1
     iget-object v0, p0, Lolive/app/OliveUi$Pull;->indicator:Landroid/view/View;
 
@@ -929,7 +929,7 @@
 
     const-wide/16 v2, 0xfa
 
-    .line 285
+    .line 286
     invoke-virtual {v0, v2, v3}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
     move-result-object v0
@@ -942,6 +942,6 @@
 
     invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 286
+    .line 287
     return-void
 .end method

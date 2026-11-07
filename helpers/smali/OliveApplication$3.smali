@@ -35,7 +35,7 @@
     .end annotation
 
     .prologue
-    .line 135
+    .line 137
     iput-object p1, p0, Lolive/app/OliveApplication$3;->this$0:Lolive/app/OliveApplication;
 
     iput-object p2, p0, Lolive/app/OliveApplication$3;->val$app:Landroid/content/Context;
@@ -53,7 +53,7 @@
     .locals 3
 
     .prologue
-    .line 137
+    .line 139
     iget-object v0, p0, Lolive/app/OliveApplication$3;->val$app:Landroid/content/Context;
 
     const-string v1, "clipboard"
@@ -64,7 +64,7 @@
 
     check-cast v0, Landroid/content/ClipboardManager;
 
-    .line 138
+    .line 140
     const-string v1, "Olive crash report"
 
     iget-object v2, p0, Lolive/app/OliveApplication$3;->val$report:Ljava/lang/String;
@@ -75,7 +75,7 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ClipboardManager;->setPrimaryClip(Landroid/content/ClipData;)V
 
-    .line 139
+    .line 141
     iget-object v0, p0, Lolive/app/OliveApplication$3;->val$app:Landroid/content/Context;
 
     const-string v1, "Crash report copied"
@@ -88,6 +88,6 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 140
+    .line 142
     return-void
 .end method

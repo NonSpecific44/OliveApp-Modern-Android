@@ -25,7 +25,7 @@ Each release lists the APK's SHA-256 (also attached as a `.sha256` file) and the
 `64:E6:76:8E:…:45:F3`, so you can check a download by hand. Every release from 1.0-modern.4 on uses the same key, so
 newer versions install as updates.
 
-Requires Android 6.0 or newer; designed for Android 14-16.
+Requires Android 7.0 or newer; designed for Android 14-16.
 
 ## Connecting to your Olive
 
@@ -71,6 +71,9 @@ headset buttons.
 
 - **Dynamic colour** from your wallpaper: the exact Material You roles on Android 14+, tonal palettes on 12-13, and
   an Olive-green M3 scheme on older versions. Light and dark follow the system.
+- **Settings → Appearance** (Android 12+): Theme (System default / Light / Dark) and Colours (Wallpaper colours /
+  Olive green). The colour roles are theme attributes, so a style overlay swaps the whole palette
+  ([`patches/patch_appearance.py`](patches/patch_appearance.py)).
 - **Google Sans Flex** on the M3 type scale; **Material Symbols Rounded** icons.
 - M3 navigation bar with animated indicator pill, floating now-playing card, rounded artwork, pill buttons, filled
   text fields, 28dp dialogs, M3 Expressive split-track slider and a shape-morphing play button.
@@ -93,6 +96,8 @@ widgets, resources and a few helper classes.
 2. [`patches/patch_ui.py`](patches/patch_ui.py): the Material 3 UI (colours, type, shapes, motion, layouts). The
    original code finds views by id and casts them, so this refuses to build if a redesigned layout drops or retypes
    any original view id.
+   [`patches/patch_appearance.py`](patches/patch_appearance.py) then turns the colour roles into theme attributes
+   for the Appearance setting.
 3. [`patches/patch_smali.py`](patches/patch_smali.py): bytecode fixes, plus the helper classes in
    [`helpers/`](helpers/) (Java source in `helpers/src`, compiled smali in `helpers/smali`; regenerate with
    `helpers/build-helpers.sh`).

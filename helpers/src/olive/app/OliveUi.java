@@ -61,6 +61,7 @@ public final class OliveUi {
         Adaptive.attach(activity);
         OliveUpdater.attachSettings(activity);
         OliveArt.attach(activity);
+        OliveTheme.attachSettings(activity);
     }
 
     // --- Progress -----------------------------------------------------------------------------------

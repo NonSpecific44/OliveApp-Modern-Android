@@ -58,6 +58,7 @@ public class OliveApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             public void onActivityResumed(Activity activity) {
                 resumed++;
+                OliveTheme.resumed(activity);
                 OliveMediaService.appVisible = true;
                 OliveMediaService.ensureRunning(activity);
                 OliveUi.attach(activity);
@@ -72,6 +73,7 @@ public class OliveApplication extends Application {
             }
 
             public void onActivityCreated(Activity activity, Bundle state) {
+                OliveTheme.apply(activity);
                 OliveUi.orientationPolicy(activity);
             }
 

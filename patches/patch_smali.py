@@ -174,6 +174,19 @@ for name in ("LoadTabs.smali", "TrackListTab.smali"):
     assert k == 1, (name, k)
     f.write_text(t)
 
+# 13. Drawables the original code loads without a theme (stars, play/pause, tab icons) use the current
+#     screen's theme, so their colours follow the chosen palette.
+n = 0
+for f in root.rglob("*.smali"):
+    t = f.read_text()
+    t2, k = re.subn(r"invoke-virtual(/range)? \{([^}]*)\}, Landroid/content/res/Resources;->getDrawable\(I\)Landroid/graphics/drawable/Drawable;",
+                    lambda m: f"invoke-static{m.group(1) or ''} {{{m.group(2)}}}, Lolive/app/OliveTheme;->drawable(Landroid/content/res/Resources;I)Landroid/graphics/drawable/Drawable;", t)
+    if k:
+        f.write_text(t2)
+        n += k
+assert n > 0
+print("themed drawable loads:", n)
+
 # 5. Add compiled helper classes.
 for f in helpers.glob("*.smali"):
     shutil.copy(f, root / f.name)
