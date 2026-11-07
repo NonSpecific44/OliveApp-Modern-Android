@@ -31,6 +31,8 @@ cp -r "$OUT/original-decoded" "$OUT/patched"
 python3 -I "$HERE/patches/patch_resources.py" "$OUT/patched"
 # 2. Material 3 UI: colours, type, shapes, motion, layouts (verifies every original view id survives).
 python3 -I "$HERE/patches/patch_ui.py" "$OUT/patched" "$OUT/original-decoded" "$HERE/m3-assets"
+# 2b. Appearance: colour roles as theme attributes, so the palette (wallpaper or Olive green) can be chosen.
+python3 -I "$HERE/patches/patch_appearance.py" "$OUT/patched" "$HERE/m3-assets"
 # 3. Bytecode fixes plus the helper classes in helpers/smali.
 python3 -I "$HERE/patches/patch_smali.py" "$OUT/patched" "$HERE/helpers/smali"
 

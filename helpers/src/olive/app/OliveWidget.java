@@ -72,6 +72,7 @@ public class OliveWidget extends AppWidgetProvider {
             return;
         }
         RemoteViews small = build(context, "olive_widget");
+        // (build() picks the "_dyn" or "_olive" variant of each layout and drawable for the Colours setting.)
         if (Build.VERSION.SDK_INT >= 31) {
             // Android 12+: the launcher picks the layout that fits the widget's current size.
             Map<SizeF, RemoteViews> sizes = new HashMap<SizeF, RemoteViews>();
@@ -89,7 +90,8 @@ public class OliveWidget extends AppWidgetProvider {
         String title = prefs.getString("widget_title", "");
         String artist = prefs.getString("widget_artist", "");
         boolean playing = prefs.getBoolean("widget_playing", false);
-        RemoteViews views = new RemoteViews(context.getPackageName(), res(context, "layout", layout));
+        String palette = OliveTheme.olive(context) ? "_olive" : "_dyn";
+        RemoteViews views = new RemoteViews(context.getPackageName(), res(context, "layout", layout + palette));
         views.setTextViewText(res(context, "id", "widgetTitle"),
                 !configured ? "Olive" : title.length() > 0 ? title : "Nothing playing");
         views.setTextViewText(res(context, "id", "widgetArtist"),
@@ -99,9 +101,9 @@ public class OliveWidget extends AppWidgetProvider {
         if (bitmap != null) {
             views.setImageViewBitmap(res(context, "id", "widgetArt"), bitmap);
         } else {
-            views.setImageViewResource(res(context, "id", "widgetArt"), res(context, "drawable", "w_art_placeholder"));
+            views.setImageViewResource(res(context, "id", "widgetArt"), res(context, "drawable", "w_art_placeholder" + palette));
         }
-        views.setImageViewResource(res(context, "id", "widgetPlay"), res(context, "drawable", playing ? "w_pause" : "w_play"));
+        views.setImageViewResource(res(context, "id", "widgetPlay"), res(context, "drawable", (playing ? "w_pause" : "w_play") + palette));
         views.setContentDescription(res(context, "id", "widgetPlay"), playing ? "Pause" : "Play");
         views.setOnClickPendingIntent(res(context, "id", "widgetPrevious"), action(context, "olive.app.PREVIOUS"));
         views.setOnClickPendingIntent(res(context, "id", "widgetPlay"), action(context, "olive.app.TOGGLE"));

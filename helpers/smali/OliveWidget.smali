@@ -24,7 +24,7 @@
     .locals 4
 
     .prologue
-    .line 114
+    .line 116
     new-instance v0, Landroid/content/Intent;
 
     const-class v1, Lolive/app/OliveMediaService;
@@ -35,17 +35,17 @@
 
     move-result-object v0
 
-    .line 115
+    .line 117
     const/high16 v1, 0xc000000
 
-    .line 116
+    .line 118
     sget v2, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v3, 0x1a
 
     if-lt v2, v3, :cond_0
 
-    .line 118
+    .line 120
     invoke-virtual {p1}, Ljava/lang/String;->hashCode()I
 
     move-result v2
@@ -54,7 +54,7 @@
 
     move-result-object v0
 
-    .line 120
+    .line 122
     :goto_0
     return-object v0
 
@@ -71,19 +71,19 @@
 .end method
 
 .method private static build(Landroid/content/Context;Ljava/lang/String;)Landroid/widget/RemoteViews;
-    .locals 7
+    .locals 9
 
     .prologue
     const/4 v1, 0x0
 
-    .line 87
+    .line 88
     const-string v0, "Olive_Settings"
 
     invoke-virtual {p0, v0, v1}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v4
 
-    .line 88
+    .line 89
     const-string v0, "none"
 
     const-string v2, "devIP"
@@ -98,11 +98,11 @@
 
     move-result v0
 
-    if-nez v0, :cond_0
+    if-nez v0, :cond_1
 
     const/4 v0, 0x1
 
-    .line 89
+    .line 90
     :goto_0
     const-string v2, "widget_title"
 
@@ -112,7 +112,7 @@
 
     move-result-object v2
 
-    .line 90
+    .line 91
     const-string v3, "widget_artist"
 
     const-string v5, ""
@@ -121,81 +121,108 @@
 
     move-result-object v3
 
-    .line 91
+    .line 92
     const-string v5, "widget_playing"
 
     invoke-interface {v4, v5, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
 
     move-result v4
 
-    .line 92
+    .line 93
+    invoke-static {p0}, Lolive/app/OliveTheme;->olive(Landroid/content/Context;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    const-string v1, "_olive"
+
+    .line 94
+    :goto_1
     new-instance v5, Landroid/widget/RemoteViews;
 
     invoke-virtual {p0}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
 
-    move-result-object v1
+    move-result-object v6
 
-    const-string v6, "layout"
+    const-string v7, "layout"
 
-    invoke-static {p0, v6, p1}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+    new-instance v8, Ljava/lang/StringBuilder;
 
-    move-result v6
+    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v5, v1, v6}, Landroid/widget/RemoteViews;-><init>(Ljava/lang/String;I)V
+    invoke-virtual {v8, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 93
-    const-string v1, "id"
+    move-result-object v8
 
-    const-string v6, "widgetTitle"
+    invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {p0, v1, v6}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v8
 
-    move-result v6
+    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    .line 94
-    if-nez v0, :cond_1
+    move-result-object v8
 
-    const-string v1, "Olive"
+    invoke-static {p0, v7, v8}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 93
-    :goto_1
-    invoke-virtual {v5, v6, v1}, Landroid/widget/RemoteViews;->setTextViewText(ILjava/lang/CharSequence;)V
+    move-result v7
+
+    invoke-direct {v5, v6, v7}, Landroid/widget/RemoteViews;-><init>(Ljava/lang/String;I)V
 
     .line 95
-    const-string v1, "id"
+    const-string v6, "id"
 
-    const-string v2, "widgetArtist"
+    const-string v7, "widgetTitle"
 
-    invoke-static {p0, v1, v2}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {p0, v6, v7}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
 
-    move-result v1
+    move-result v6
 
     .line 96
     if-nez v0, :cond_3
 
-    const-string v0, "Open the app to connect to your Olive"
+    const-string v2, "Olive"
 
     .line 95
+    :cond_0
     :goto_2
-    invoke-virtual {v5, v1, v0}, Landroid/widget/RemoteViews;->setTextViewText(ILjava/lang/CharSequence;)V
+    invoke-virtual {v5, v6, v2}, Landroid/widget/RemoteViews;->setTextViewText(ILjava/lang/CharSequence;)V
 
     .line 97
+    const-string v2, "id"
+
+    const-string v6, "widgetArtist"
+
+    invoke-static {p0, v2, v6}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v2
+
+    .line 98
+    if-nez v0, :cond_4
+
+    const-string v0, "Open the app to connect to your Olive"
+
+    .line 97
+    :goto_3
+    invoke-virtual {v5, v2, v0}, Landroid/widget/RemoteViews;->setTextViewText(ILjava/lang/CharSequence;)V
+
+    .line 99
     new-instance v0, Ljava/io/File;
 
     invoke-virtual {p0}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
 
-    move-result-object v1
+    move-result-object v2
 
-    const-string v2, "widget_art.png"
+    const-string v3, "widget_art.png"
 
-    invoke-direct {v0, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v0, v2, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 98
+    .line 100
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
-    move-result v1
+    move-result v2
 
-    if-eqz v1, :cond_4
+    if-eqz v2, :cond_5
 
     invoke-virtual {v0}, Ljava/io/File;->getPath()Ljava/lang/String;
 
@@ -205,61 +232,77 @@
 
     move-result-object v0
 
-    .line 99
-    :goto_3
-    if-eqz v0, :cond_5
-
-    .line 100
-    const-string v1, "id"
-
-    const-string v2, "widgetArt"
-
-    invoke-static {p0, v1, v2}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
-
-    move-result v1
-
-    invoke-virtual {v5, v1, v0}, Landroid/widget/RemoteViews;->setImageViewBitmap(ILandroid/graphics/Bitmap;)V
-
-    .line 104
+    .line 101
     :goto_4
-    const-string v0, "id"
+    if-eqz v0, :cond_6
 
-    const-string v1, "widgetPlay"
+    .line 102
+    const-string v2, "id"
 
-    invoke-static {p0, v0, v1}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+    const-string v3, "widgetArt"
 
-    move-result v1
+    invoke-static {p0, v2, v3}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
 
-    const-string v2, "drawable"
+    move-result v2
 
-    if-eqz v4, :cond_6
+    invoke-virtual {v5, v2, v0}, Landroid/widget/RemoteViews;->setImageViewBitmap(ILandroid/graphics/Bitmap;)V
 
-    const-string v0, "w_pause"
-
+    .line 106
     :goto_5
-    invoke-static {p0, v2, v0}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
-
-    move-result v0
-
-    invoke-virtual {v5, v1, v0}, Landroid/widget/RemoteViews;->setImageViewResource(II)V
-
-    .line 105
     const-string v0, "id"
 
-    const-string v1, "widgetPlay"
+    const-string v2, "widgetPlay"
 
-    invoke-static {p0, v0, v1}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {p0, v0, v2}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
 
-    move-result v1
+    move-result v2
+
+    const-string v3, "drawable"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
     if-eqz v4, :cond_7
 
-    const-string v0, "Pause"
+    const-string v0, "w_pause"
 
     :goto_6
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {p0, v3, v0}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v0
+
+    invoke-virtual {v5, v2, v0}, Landroid/widget/RemoteViews;->setImageViewResource(II)V
+
+    .line 107
+    const-string v0, "id"
+
+    const-string v1, "widgetPlay"
+
+    invoke-static {p0, v0, v1}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v1
+
+    if-eqz v4, :cond_8
+
+    const-string v0, "Pause"
+
+    :goto_7
     invoke-virtual {v5, v1, v0}, Landroid/widget/RemoteViews;->setContentDescription(ILjava/lang/CharSequence;)V
 
-    .line 106
+    .line 108
     const-string v0, "id"
 
     const-string v1, "widgetPrevious"
@@ -276,7 +319,7 @@
 
     invoke-virtual {v5, v0, v1}, Landroid/widget/RemoteViews;->setOnClickPendingIntent(ILandroid/app/PendingIntent;)V
 
-    .line 107
+    .line 109
     const-string v0, "id"
 
     const-string v1, "widgetPlay"
@@ -293,7 +336,7 @@
 
     invoke-virtual {v5, v0, v1}, Landroid/widget/RemoteViews;->setOnClickPendingIntent(ILandroid/app/PendingIntent;)V
 
-    .line 108
+    .line 110
     const-string v0, "id"
 
     const-string v1, "widgetNext"
@@ -310,7 +353,7 @@
 
     invoke-virtual {v5, v0, v1}, Landroid/widget/RemoteViews;->setOnClickPendingIntent(ILandroid/app/PendingIntent;)V
 
-    .line 109
+    .line 111
     const-string v0, "id"
 
     const-string v1, "widgetBody"
@@ -325,77 +368,94 @@
 
     invoke-virtual {v5, v0, v1}, Landroid/widget/RemoteViews;->setOnClickPendingIntent(ILandroid/app/PendingIntent;)V
 
-    .line 110
+    .line 112
     return-object v5
 
-    :cond_0
+    :cond_1
     move v0, v1
 
-    .line 88
+    .line 89
     goto/16 :goto_0
 
-    .line 94
-    :cond_1
-    invoke-virtual {v2}, Ljava/lang/String;->length()I
-
-    move-result v1
-
-    if-lez v1, :cond_2
-
-    move-object v1, v2
-
-    goto/16 :goto_1
-
+    .line 93
     :cond_2
-    const-string v1, "Nothing playing"
+    const-string v1, "_dyn"
 
     goto/16 :goto_1
-
-    :cond_3
-    move-object v0, v3
 
     .line 96
+    :cond_3
+    invoke-virtual {v2}, Ljava/lang/String;->length()I
+
+    move-result v7
+
+    if-gtz v7, :cond_0
+
+    const-string v2, "Nothing playing"
+
     goto/16 :goto_2
 
-    .line 98
     :cond_4
-    const/4 v0, 0x0
+    move-object v0, v3
 
+    .line 98
     goto/16 :goto_3
 
-    .line 102
+    .line 100
     :cond_5
-    const-string v0, "id"
-
-    const-string v1, "widgetArt"
-
-    invoke-static {p0, v0, v1}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
-
-    move-result v0
-
-    const-string v1, "drawable"
-
-    const-string v2, "w_art_placeholder"
-
-    invoke-static {p0, v1, v2}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
-
-    move-result v1
-
-    invoke-virtual {v5, v0, v1}, Landroid/widget/RemoteViews;->setImageViewResource(II)V
+    const/4 v0, 0x0
 
     goto/16 :goto_4
 
     .line 104
     :cond_6
-    const-string v0, "w_play"
+    const-string v0, "id"
+
+    const-string v2, "widgetArt"
+
+    invoke-static {p0, v0, v2}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v0
+
+    const-string v2, "drawable"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "w_art_placeholder"
+
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {p0, v2, v3}, Lolive/app/OliveWidget;->res(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result v2
+
+    invoke-virtual {v5, v0, v2}, Landroid/widget/RemoteViews;->setImageViewResource(II)V
 
     goto/16 :goto_5
 
-    .line 105
+    .line 106
     :cond_7
+    const-string v0, "w_play"
+
+    goto/16 :goto_6
+
+    .line 107
+    :cond_8
     const-string v0, "Play"
 
-    goto :goto_6
+    goto/16 :goto_7
 .end method
 
 .method private static openApp(Landroid/content/Context;)Landroid/app/PendingIntent;
@@ -404,7 +464,7 @@
     .prologue
     const/4 v4, 0x1
 
-    .line 124
+    .line 126
     new-instance v0, Landroid/content/Intent;
 
     invoke-direct {v0}, Landroid/content/Intent;-><init>()V
@@ -421,7 +481,7 @@
 
     move-result-object v0
 
-    .line 125
+    .line 127
     new-instance v1, Landroid/content/Intent;
 
     invoke-direct {v1}, Landroid/content/Intent;-><init>()V
@@ -432,7 +492,7 @@
 
     move-result-object v1
 
-    .line 126
+    .line 128
     const/4 v2, 0x2
 
     new-array v2, v2, [Landroid/content/Intent;
@@ -481,7 +541,7 @@
 
     if-nez v2, :cond_1
 
-    .line 84
+    .line 85
     :cond_0
     :goto_0
     return-void
@@ -494,19 +554,19 @@
 
     move-result-object v2
 
-    .line 75
+    .line 76
     sget v3, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v4, 0x1f
 
     if-lt v3, v4, :cond_2
 
-    .line 77
+    .line 78
     new-instance v3, Ljava/util/HashMap;
 
     invoke-direct {v3}, Ljava/util/HashMap;-><init>()V
 
-    .line 78
+    .line 79
     new-instance v4, Landroid/util/SizeF;
 
     const/high16 v5, 0x42200000    # 40.0f
@@ -515,7 +575,7 @@
 
     invoke-interface {v3, v4, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 79
+    .line 80
     new-instance v2, Landroid/util/SizeF;
 
     const/high16 v4, 0x43160000    # 150.0f
@@ -530,7 +590,7 @@
 
     invoke-interface {v3, v2, v4}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 80
+    .line 81
     new-instance v2, Landroid/widget/RemoteViews;
 
     invoke-direct {v2, v3}, Landroid/widget/RemoteViews;-><init>(Ljava/util/Map;)V
@@ -539,7 +599,7 @@
 
     goto :goto_0
 
-    .line 82
+    .line 83
     :cond_2
     invoke-virtual {v0, v1, v2}, Landroid/appwidget/AppWidgetManager;->updateAppWidget([ILandroid/widget/RemoteViews;)V
 
@@ -550,7 +610,7 @@
     .locals 2
 
     .prologue
-    .line 143
+    .line 145
     invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -572,7 +632,7 @@
     .prologue
     const/4 v7, 0x0
 
-    .line 132
+    .line 134
     invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
 
     move-result v0
@@ -585,7 +645,7 @@
 
     move-result v0
 
-    .line 133
+    .line 135
     invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
 
     move-result v1
@@ -606,21 +666,21 @@
 
     move-result-object v1
 
-    .line 134
+    .line 136
     sget-object v2, Landroid/graphics/Bitmap$Config;->ARGB_8888:Landroid/graphics/Bitmap$Config;
 
     invoke-static {v0, v0, v2}, Landroid/graphics/Bitmap;->createBitmap(IILandroid/graphics/Bitmap$Config;)Landroid/graphics/Bitmap;
 
     move-result-object v2
 
-    .line 135
+    .line 137
     new-instance v3, Landroid/graphics/Paint;
 
     const/4 v4, 0x1
 
     invoke-direct {v3, v4}, Landroid/graphics/Paint;-><init>(I)V
 
-    .line 136
+    .line 138
     new-instance v4, Landroid/graphics/BitmapShader;
 
     sget-object v5, Landroid/graphics/Shader$TileMode;->CLAMP:Landroid/graphics/Shader$TileMode;
@@ -631,12 +691,12 @@
 
     invoke-virtual {v3, v4}, Landroid/graphics/Paint;->setShader(Landroid/graphics/Shader;)Landroid/graphics/Shader;
 
-    .line 137
+    .line 139
     int-to-float v1, v0
 
     mul-float/2addr v1, p1
 
-    .line 138
+    .line 140
     new-instance v4, Landroid/graphics/Canvas;
 
     invoke-direct {v4, v2}, Landroid/graphics/Canvas;-><init>(Landroid/graphics/Bitmap;)V
@@ -651,7 +711,7 @@
 
     invoke-virtual {v4, v5, v1, v1, v3}, Landroid/graphics/Canvas;->drawRoundRect(Landroid/graphics/RectF;FFLandroid/graphics/Paint;)V
 
-    .line 139
+    .line 141
     return-object v2
 .end method
 

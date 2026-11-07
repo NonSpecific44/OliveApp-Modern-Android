@@ -123,7 +123,7 @@ public class WidgetAndArtTest {
     public void widgetShowsNowPlayingAndButtonsWaitForPlayerState() throws Exception {
         Context c = RuntimeEnvironment.getApplication();
         ShadowAppWidgetManager widgets = Shadows.shadowOf(AppWidgetManager.getInstance(c));
-        int widgetId = widgets.createWidget(app("OliveWidget").asSubclass(android.appwidget.AppWidgetProvider.class), id("layout", "olive_widget"));
+        int widgetId = widgets.createWidget(app("OliveWidget").asSubclass(android.appwidget.AppWidgetProvider.class), id("layout", "olive_widget_dyn"));
         int before = count(serverLog(), "sortCrit=+upnp:originalTrackNumber&index=0");
 
         // A widget play/pause tap starting the service from cold: it learns the player is playing, then pauses.
@@ -140,7 +140,7 @@ public class WidgetAndArtTest {
         assertTrue("artwork saved for the widget", new File(c.getFilesDir(), "widget_art.png").exists());
         shot(view, 340, 72, "30-widget-4x1");
 
-        View large = android.view.LayoutInflater.from(c).inflate(id("layout", "olive_widget_large"), null);
+        View large = android.view.LayoutInflater.from(c).inflate(id("layout", "olive_widget_large_dyn"), null);
         android.widget.RemoteViews remote = (android.widget.RemoteViews) buildLarge(c);
         remote.reapply(c, large);
         shot(large, 340, 190, "31-widget-4x2");

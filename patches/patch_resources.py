@@ -116,6 +116,6 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
 
 p = pathlib.Path('apktool.yml'); s = p.read_text()
 s = s.replace("  minSdkVersion: 6\n", "  minSdkVersion: 21\n  targetSdkVersion: 34\n")
-s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 10\n  versionName: 1.1.0\n")
+s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 11\n  versionName: 1.2.0\n")
 p.write_text(s)
 print("resources patched")

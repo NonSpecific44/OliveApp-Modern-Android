@@ -378,7 +378,7 @@ public class OliveMediaService extends Service {
 
     private Notification buildNotification() {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26 ? new Notification.Builder(this, CHANNEL) : new Notification.Builder(this);
-        int icon = getResources().getIdentifier("ic_m3_now_playing", "drawable", getPackageName());
+        int icon = getResources().getIdentifier("ic_notif", "drawable", getPackageName());
         b.setSmallIcon(icon != 0 ? icon : android.R.drawable.ic_media_play)
                 .setContentTitle(title.length() > 0 ? title : "Olive")
                 .setContentText(album.length() > 0 ? artist + " • " + album : artist)
