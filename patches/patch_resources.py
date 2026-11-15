@@ -100,6 +100,7 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".OliveArtistActivity" {cfg} android:exported="false"/>
         <activity android:name=".SearchEntry" android:label="Search" android:theme="@style/OliveTheme.Dialog" android:windowSoftInputMode="stateVisible" android:exported="false"/>
 {acts}
         <service android:name=".OliveMediaService" android:exported="false" android:foregroundServiceType="mediaPlayback"/>
@@ -116,6 +117,6 @@ pathlib.Path('AndroidManifest.xml').write_text(f'''<?xml version="1.0" encoding=
 
 p = pathlib.Path('apktool.yml'); s = p.read_text()
 s = s.replace("  minSdkVersion: 6\n", "  minSdkVersion: 21\n  targetSdkVersion: 34\n")
-s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 11\n  versionName: 1.2.0\n")
+s = s.replace("  versionCode: 1\n  versionName: 1.0\n", "  versionCode: 12\n  versionName: 1.3.0\n")
 p.write_text(s)
 print("resources patched")
