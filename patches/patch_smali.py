@@ -187,6 +187,15 @@ for f in root.rglob("*.smali"):
 assert n > 0
 print("themed drawable loads:", n)
 
+# 14. Artists tab: one row per artist. After the original code shows each page of (per-album) results,
+#     OliveArtists groups them by artist and opens an artist's albums on tap.
+f = root / "LoadingArtist.smali"
+t = f.read_text()
+t, k = re.subn(r"(    invoke-virtual \{(v\d+)\}, Lolive/app/ArtistTab;->displayItems\(\)V\n)",
+               r"\1\n    invoke-static {\2}, Lolive/app/OliveArtists;->onArtistsShown(Landroid/app/Activity;)V\n", t)
+assert k == 1, k
+f.write_text(t)
+
 # 5. Add compiled helper classes.
 for f in helpers.glob("*.smali"):
     shutil.copy(f, root / f.name)

@@ -14,10 +14,17 @@ TRACKS = ["La Femme d'Argent", "Sexy Boy", "All I Need", "Kelly Watch the Stars"
           "You Make It Easy", "Ce Matin-Là", "New Star in the Sky", "Le Voyage de Pénélope"]
 COLORS = [(196, 87, 60), (60, 120, 170), (120, 160, 70), (170, 70, 140), (220, 170, 50), (70, 160, 150)]
 
-def result(entries):
+# Browsing by artist returns albums sorted by artist (one row per album), as a real Olive does.
+ARTIST_ALBUMS = ([("Moon Safari", "Air"), ("Talkie Walkie", "Air"), ("The Virgin Suicides", "Air"),
+                  ("Black Sands", "Bonobo"), ("Migration", "Bonobo"), ("Discovery", "Daft Punk"), ("Homework", "Daft Punk"),
+                  ("Rumours", "Fleetwood Mac"), ("Mezzanine", "Massive Attack"), ("Says", "Nils Frahm")]
+                 + [(f"Session {n}", f"Zz Session Players {n // 3}") for n in range(60)])
+
+
+def result(entries, start=0, total=None):
     body = "".join(f'<container id="obj{i}" restricted="1"><title>{escape(t)}</title><artist>{escape(a)}</artist>'
-                   f'<albumArtURI>http://127.0.0.1/art/{i}.png</albumArtURI></container>' for i, (t, a) in enumerate(entries))
-    return f'<?xml version="1.0"?><Result><TotalMatches>{len(entries)}</TotalMatches>{body}</Result>'
+                   f'<albumArtURI>http://127.0.0.1/art/{i % 6}.png</albumArtURI></container>' for i, (t, a) in enumerate(entries, start))
+    return f'<?xml version="1.0"?><Result><TotalMatches>{len(entries) if total is None else total}</TotalMatches>{body}</Result>'
 
 def tree(titles, isdir="1", action=""):
     body = "".join(f'<item><title>{escape(t)}</title><objid>id{i}</objid><action>{action}</action><isDir>{isdir}</isDir>'
@@ -75,7 +82,11 @@ class H(http.server.BaseHTTPRequestHandler):
             body = METADATA
         elif "artworkZapp" in u.path:
             crit = q.get("searchCriteria", [""])[0]
-            body = result([(a, a) for a in ARTISTS] if crit == "artist" else ALBUMS)
+            if crit == "artist":
+                start = int(q.get("startIndex", ["0"])[0])
+                body = result(ARTIST_ALBUMS[start:start + 64], start, len(ARTIST_ALBUMS))
+            else:
+                body = result(ALBUMS)
         elif "iGetCompilationsAndTracks" in u.path:
             idv = q.get("id", [""])[0]
             body = tree(["Favourites", "Dinner party", "Sunday morning"]) if idv == "ROOT_ALLPL" else tree(TRACKS, isdir="0")

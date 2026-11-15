@@ -37,6 +37,12 @@ Requires Android 7.0 or newer; designed for Android 14-16.
 - **Anywhere else** (mobile data with Tailscale or another VPN): type the player's address into the connect box,
   e.g. its Tailscale IP (`100.x.x.x`), MagicDNS name, or LAN IP if your tailnet routes that subnet.
 
+## Artists
+
+The Olive lists its library by album, so the original Artists tab showed each artist once per album. The tab now
+shows one entry per artist, with their first album's cover and the number of albums; tap one for their albums, then
+an album for its tracks ([`OliveArtists`](helpers/src/olive/app/OliveArtists.java)).
+
 ## Home-screen widget
 
 Long-press your home screen, choose **Widgets → Olive** and place it: the current track with its artwork, plus
